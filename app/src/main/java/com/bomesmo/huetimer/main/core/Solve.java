@@ -16,6 +16,22 @@ public class Solve {
         this.scramble = scramble;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getScramble() {
+        return scramble;
+    }
+
+    public void setScramble(String scramble) {
+        this.scramble = scramble;
+    }
+
     @Override
     public String toString() {
         return TF.format(time) + "\t" + scramble;
