@@ -5,7 +5,9 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.auxiliar.Chronometer;
+import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,6 +44,23 @@ public class TouchesListener implements View.OnTouchListener {
         //TODO: scramble correto
         String scrambleSequence = new Random().nextInt() + " kkkkkksahfuhsadf";
         core.setTheScramble(scrambleSequence);
+
+        /* TODO: ADICIONAR SOLVES AQUI */
+        core.getSolves().add(new Solve(chronometer.e, scrambleShown));
+        //refreshSolvesData();
+    }
+
+    private void refreshSolvesData(){
+        ArrayList<Solve> aux;
+        if (PreferencesHelper.dataContains(core.getMainActivity().getApplicationContext(), "solves")){
+            aux = PreferencesHelper.getSolvesList(core.getMainActivity().getApplicationContext(), "solves");
+        } else {
+            aux = new ArrayList<>();
+        }
+
+        aux.addAll(core.getSolves());
+        PreferencesHelper.handleSolveList(core.getMainActivity().getApplicationContext(), PreferencesHelper.REMOVER, "solves", null);
+        PreferencesHelper.handleSolveList(core.getMainActivity().getApplicationContext(), "solves", aux);
     }
 
     @Override
@@ -69,8 +88,6 @@ public class TouchesListener implements View.OnTouchListener {
             }
 
             if (started) {
-                //TODO: ADICIONAR SOLVES AQUI
-                //core.getSolves().add(new Solve(chronometer.e, scrambleShown));
                 stop();
             }
 

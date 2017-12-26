@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.bomesmo.huetimer.main.activities.TimesListActivity">
 
-    <Button
-        android:id="@+id/clear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:text="Apagar Tudo" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -23,12 +14,45 @@
         android:text="Solves:"
         android:textColor="@android:color/background_dark" />
 
+    <com.bomesmo.huetimer.main.auxiliar.AnimatedExpandableListView
+        android:id="@+id/animatedListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/log"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2" />
+
+    <!--
     <ExpandableListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/clear"
+        android:layout_above="@+id/log"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2" />
+    -->
+
+    <EditText
+        android:id="@+id/log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/clear"
+        android:background="?android:attr/editTextBackground"
+        android:ems="10"
+        android:hint="logger"
+        android:inputType="none"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_dark"
+        android:textIsSelectable="true"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:text="Apagar Tudo" />
 
 </RelativeLayout>

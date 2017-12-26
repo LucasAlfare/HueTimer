@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity
         mainScreen = findViewById(R.id.mainScreen);
         display = findViewById(R.id.display);
         scramble = findViewById(R.id.scramble);
+        solves = new ArrayList<>();
 
-        new Core(MainActivity.this, null, mainScreen, display, scramble);
+        new Core(MainActivity.this, solves, mainScreen, display, scramble);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

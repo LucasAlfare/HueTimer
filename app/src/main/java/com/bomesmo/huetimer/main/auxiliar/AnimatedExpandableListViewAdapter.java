@@ -3,11 +3,10 @@ package com.bomesmo.huetimer.main.auxiliar;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,12 +20,14 @@ import java.util.ArrayList;
  * Created by Lucas on 25/12/2017.
  */
 
-public class Adaptador extends BaseExpandableListAdapter {
+public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
     private Context context;
     private ArrayList<Solve> solves;
 
-    public Adaptador(Context context, ArrayList<Solve> solves) {
+    private Animation animation;
+
+    public AnimatedExpandableListViewAdapter(Context context, ArrayList<Solve> solves) {
         this.context = context;
         this.solves = solves;
     }
@@ -34,11 +35,6 @@ public class Adaptador extends BaseExpandableListAdapter {
     @Override
     public int getGroupCount() {
         return solves.size();
-    }
-
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        return 1;
     }
 
     @Override
@@ -68,7 +64,6 @@ public class Adaptador extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
@@ -82,7 +77,7 @@ public class Adaptador extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
@@ -103,6 +98,11 @@ public class Adaptador extends BaseExpandableListAdapter {
         });
 
         return convertView;
+    }
+
+    @Override
+    public int getRealChildrenCount(int groupPosition) {
+        return 1;
     }
 
     @Override
