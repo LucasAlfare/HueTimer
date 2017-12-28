@@ -5,9 +5,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.auxiliar.Chronometer;
-import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
+import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +15,7 @@ import java.util.TimerTask;
  * Created by Lucas on 24/12/2017.
  */
 
-public class TouchesListener implements View.OnTouchListener {
+public class MainTouchesHandler implements View.OnTouchListener {
 
     private Core core;
     private Timer timer, timerLong;
@@ -25,7 +24,7 @@ public class TouchesListener implements View.OnTouchListener {
 
     private boolean isLong, started;
 
-    public TouchesListener(Core core) {
+    public MainTouchesHandler(Core core) {
         this.core = core;
     }
 
@@ -46,21 +45,8 @@ public class TouchesListener implements View.OnTouchListener {
         core.setTheScramble(scrambleSequence);
 
         /* TODO: ADICIONAR SOLVES AQUI */
-        core.getSolves().add(new Solve(chronometer.e, scrambleShown));
-        //refreshSolvesData();
-    }
-
-    private void refreshSolvesData(){
-        ArrayList<Solve> aux;
-        if (PreferencesHelper.dataContains(core.getMainActivity().getApplicationContext(), "solves")){
-            aux = PreferencesHelper.getSolvesList(core.getMainActivity().getApplicationContext(), "solves");
-        } else {
-            aux = new ArrayList<>();
-        }
-
-        aux.addAll(core.getSolves());
-        PreferencesHelper.handleSolveList(core.getMainActivity().getApplicationContext(), PreferencesHelper.REMOVER, "solves", null);
-        PreferencesHelper.handleSolveList(core.getMainActivity().getApplicationContext(), "solves", aux);
+        Solve s = new Solve(chronometer.e, scrambleShown);
+        SolvesHandler.addSolve(core.getMainActivity().getApplicationContext(), s);
     }
 
     @Override

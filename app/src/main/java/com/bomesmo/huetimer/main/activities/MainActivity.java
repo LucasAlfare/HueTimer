@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bomesmo.huetimer.main.R;
+import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
+import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 import com.bomesmo.huetimer.main.core.Core;
 import com.bomesmo.huetimer.main.core.Solve;
 
@@ -28,8 +30,6 @@ public class MainActivity extends AppCompatActivity
     private RelativeLayout mainScreen;
     private TextView display, scramble;
 
-    private ArrayList<Solve> solves;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity
         mainScreen = findViewById(R.id.mainScreen);
         display = findViewById(R.id.display);
         scramble = findViewById(R.id.scramble);
-        solves = new ArrayList<>();
 
-        new Core(MainActivity.this, solves, mainScreen, display, scramble);
+        new Core(MainActivity.this, mainScreen, display, scramble);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,12 +47,19 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Averages:", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Averages: - -", Snackbar.LENGTH_LONG)
                         .setAction("Deletar último", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Snackbar snackbar1 = Snackbar.make(v, "Deletado!", Snackbar.LENGTH_LONG);
-                                snackbar1.show();
+                                ArrayList<Solve> salvos;
+
+                                if (PreferencesHelper.dataContains(getApplicationContext(), "solves")){
+                                    salvos = SolvesHandler.getSolves(getApplicationContext());
+                                    SolvesHandler.removeSolve(getApplicationContext(), salvos.size() - 1);
+                                    Snackbar snackbar1 = Snackbar.make(v, "Deletado!", Snackbar.LENGTH_LONG);
+                                    snackbar1.show();
+                                    display.setText("pronto!");
+                                }
                             }
                         }).show();
             }

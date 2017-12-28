@@ -6,9 +6,6 @@ import android.widget.TextView;
 
 import com.bomesmo.huetimer.main.activities.MainActivity;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  * Created by Lucas on 24/12/2017.
  */
@@ -19,18 +16,16 @@ public class Core {
 
     //mainScreen, display, scramble
     private View[] views;
-    private ArrayList<Solve> solves;
 
-    public Core(MainActivity mainActivity, ArrayList<Solve> solves, View... views){
+    public Core(MainActivity mainActivity, View... views){
         this.mainActivity = mainActivity;
-        this.solves = solves;
         this.views = views;
 
         setupTouchesListener();
     }
 
     private void setupTouchesListener(){
-        views[0].setOnTouchListener(new TouchesListener(this));
+        views[0].setOnTouchListener(new MainTouchesHandler(this));
     }
 
     public void setTheScramble(String scramble){
@@ -45,10 +40,6 @@ public class Core {
 
     public MainActivity getMainActivity() {
         return mainActivity;
-    }
-
-    public ArrayList<Solve> getSolves() {
-        return solves;
     }
 
     public RelativeLayout getMainDisplay(){

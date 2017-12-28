@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ccd1eb"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/newTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/editTextBackground"
+        android:ems="10"
+        android:hint="novo tempo"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/background_dark" />
+
+    <EditText
+        android:id="@+id/newScramble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="@android:color/background_dark"
+        android:background="?android:attr/editTextBackground"
+        android:hint="novo scramble"
+        android:inputType="textPersonName" />
+
+</LinearLayout>

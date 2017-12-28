@@ -19,6 +19,9 @@
         android:text="pronto!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_dark"
+        android:shadowColor="#687dbc"
+        android:shadowRadius="5"
+        android:shadowDx="-5"
         android:textSize="80sp" />
 
     <TextView
