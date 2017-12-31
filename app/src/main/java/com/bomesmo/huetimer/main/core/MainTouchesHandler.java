@@ -5,6 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.auxiliar.Chronometer;
+import com.bomesmo.huetimer.main.auxiliar.Solve;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 
 import java.util.Random;
@@ -41,7 +42,7 @@ public class MainTouchesHandler implements View.OnTouchListener {
         started = false;
 
         //TODO: scramble correto
-        String scrambleSequence = new Random().nextInt() + " kkkkkksahfuhsadf";
+        String scrambleSequence = new Random().nextInt() + "";
         core.setTheScramble(scrambleSequence);
 
         /* TODO: ADICIONAR SOLVES AQUI */
@@ -53,24 +54,27 @@ public class MainTouchesHandler implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             scrambleShown = core.getTheScramble();
-            core.getDisplay().setTextSize(60f);
-            core.getDisplay().setTextColor(Color.YELLOW);
 
-            if (timerLong == null) {
-                timerLong = new Timer();
+            if (!started){
+                core.getDisplay().setTextSize(60f);
+                core.getDisplay().setTextColor(Color.YELLOW);
 
-                timerLong.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        isLong = true;
-                        core.getMainActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                core.getDisplay().setTextColor(Color.GREEN);
-                            }
-                        });
-                    }
-                }, 300, 1000);
+                if (timerLong == null) {
+                    timerLong = new Timer();
+
+                    timerLong.scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            isLong = true;
+                            core.getMainActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    core.getDisplay().setTextColor(Color.GREEN);
+                                }
+                            });
+                        }
+                    }, 300, 1000);
+                }
             }
 
             if (started) {
@@ -86,8 +90,11 @@ public class MainTouchesHandler implements View.OnTouchListener {
             }
 
             isLong = false;
-            timerLong.cancel();
-            timerLong = null;
+
+            if (timerLong != null){
+                timerLong.cancel();
+                timerLong = null;
+            }
 
             return true;
         }

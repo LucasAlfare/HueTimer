@@ -1,7 +1,9 @@
 package com.bomesmo.huetimer.main.auxiliar;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.activities.TimesListActivity;
-import com.bomesmo.huetimer.main.core.Solve;
 
 import java.util.ArrayList;
 
@@ -86,7 +88,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
 
         ImageButton editSolve = convertView.findViewById(R.id.editSolve);
         ImageButton deleteSolve = convertView.findViewById(R.id.deleteSolve);
-        //ImageButton shareSolve = convertView.findViewById(R.id.shareSolve);
+        ImageButton shareSolve = convertView.findViewById(R.id.shareSolve);
 
         EditText scrambleBox = convertView.findViewById(R.id.scrambleBox);
         scrambleBox.setText(solves.get(groupPosition).getScramble());
@@ -128,7 +130,49 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
         deleteSolve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SolvesHandler.removeSolve(context, groupPosition);
+                final AlertDialog.Builder alert = new AlertDialog.Builder(timesListActivity);
+
+                alert.setTitle("ATENÇÃO!!");
+                alert.setMessage("Excluir o tempo " + TF.format(solves.get(groupPosition).getTime()) + "???");
+
+                alert.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SolvesHandler.removeSolve(context, groupPosition);
+                        Toast.makeText(timesListActivity, "deletado!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //pass
+                    }
+                });
+
+                alert.show();
+            }
+        });
+
+        shareSolve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+                String value =
+                        "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n" +
+                        "Tempo: " + TF.format(solves.get(groupPosition).getTime()) + "\n\n" +
+                        "Embaralhamento: " + solves.get(groupPosition).getScramble();
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, value);
+                shareIntent.setType("text/plain");
+
+                timesListActivity.startActivity(shareIntent);
+
+                /* Alternativo...
+
+                startActivity(Intent.createChooser(share, "Share using"));
+                 */
             }
         });
 

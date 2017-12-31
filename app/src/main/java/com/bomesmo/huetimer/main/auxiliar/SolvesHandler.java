@@ -2,8 +2,6 @@ package com.bomesmo.huetimer.main.auxiliar;
 
 import android.content.Context;
 
-import com.bomesmo.huetimer.main.core.Solve;
-
 import java.util.ArrayList;
 
 /**
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 public class SolvesHandler {
 
     public static ArrayList<Solve> getSolves(Context context){
-        return PreferencesHelper.getSolvesList(context, "solves");
+        return PreferencesHelper.dataContains(context, "solves") ? PreferencesHelper.getSolvesList(context, "solves") : new ArrayList<Solve>();
     }
 
     public static void addSolve(Context context, Solve x){

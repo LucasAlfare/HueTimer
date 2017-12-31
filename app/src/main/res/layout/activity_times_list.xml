@@ -12,7 +12,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Solves:"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:layout_alignParentLeft="true" />
 
     <com.bomesmo.huetimer.main.auxiliar.AnimatedExpandableListView
         android:id="@+id/animatedListView"
@@ -20,7 +21,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/log"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true" />
 
     <!--
     <ExpandableListView
@@ -53,6 +55,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:text="Apagar Tudo" />
+        android:text="Apagar Tudo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

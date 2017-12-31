@@ -1,4 +1,4 @@
-package com.bomesmo.huetimer.main.core;
+package com.bomesmo.huetimer.main.auxiliar;
 
 import com.bomesmo.huetimer.main.auxiliar.TF;
 

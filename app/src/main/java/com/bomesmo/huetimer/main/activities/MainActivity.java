@@ -19,41 +19,62 @@ import android.widget.TextView;
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
+import com.bomesmo.huetimer.main.auxiliar.TF;
 import com.bomesmo.huetimer.main.core.Core;
-import com.bomesmo.huetimer.main.core.Solve;
+import com.bomesmo.huetimer.main.auxiliar.Solve;
+import com.bomesmo.huetimer.main.statistics.CurrentAvgX;
+import com.bomesmo.huetimer.main.statistics.Statistic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RelativeLayout mainScreen;
     private TextView display, scramble;
+    private ArrayList<Solve> solves;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainScreen = findViewById(R.id.mainScreen);
         display = findViewById(R.id.display);
         scramble = findViewById(R.id.scramble);
+        solves = SolvesHandler.getSolves(getApplicationContext());
 
-        new Core(MainActivity.this, mainScreen, display, scramble);
+        final Core core = new Core(MainActivity.this, mainScreen, display, scramble);
+
+        //TODO: scramble correto
+        String scrambleSequence = new Random().nextInt() + "";
+        core.setTheScramble(scrambleSequence);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (solves.isEmpty()){
+            display.setText("pronto!");
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Averages: - -", Snackbar.LENGTH_LONG)
+                Statistic avg5 = new CurrentAvgX(solves, 5);
+                Statistic avg12 = new CurrentAvgX(solves, 12);
+
+                String label =
+                        "Avg5: " + (avg5.result() != 0 ? TF.format(avg5.result()) : "- -")  + "\n" +
+                        "Avg12: " + (avg12.result() != 0 ? TF.format(avg12.result()) : "- -");
+
+                Snackbar.make(view, label, Snackbar.LENGTH_LONG)
                         .setAction("Deletar último", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 ArrayList<Solve> salvos;
 
-                                if (PreferencesHelper.dataContains(getApplicationContext(), "solves")){
+                                if (PreferencesHelper.dataContains(getApplicationContext(), "solves")) {
                                     salvos = SolvesHandler.getSolves(getApplicationContext());
                                     SolvesHandler.removeSolve(getApplicationContext(), salvos.size() - 1);
                                     Snackbar snackbar1 = Snackbar.make(v, "Deletado!", Snackbar.LENGTH_LONG);
@@ -76,6 +97,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (solves.isEmpty()){
+            display.setText("pronto!");
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -88,6 +117,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 

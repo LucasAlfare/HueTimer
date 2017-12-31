@@ -1,9 +1,12 @@
 package com.bomesmo.huetimer.main.activities;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +17,7 @@ import com.bomesmo.huetimer.main.auxiliar.AnimatedExpandableListView;
 import com.bomesmo.huetimer.main.auxiliar.AnimatedExpandableListViewAdapter;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
-import com.bomesmo.huetimer.main.core.Solve;
+import com.bomesmo.huetimer.main.auxiliar.Solve;
 
 import java.util.ArrayList;
 
@@ -24,7 +27,7 @@ public class TimesListActivity extends AppCompatActivity {
     private AnimatedExpandableListView listaAnimada;
     private Button button;
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener PREFERENCES_CHANGE_LISTENER = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    private final OnSharedPreferenceChangeListener PREFERENCES_CHANGE_LISTENER = new OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (key.equals("solves")){
@@ -35,7 +38,6 @@ public class TimesListActivity extends AppCompatActivity {
                         new ArrayList<Solve>();
 
                 listaAnimada.setAdapter(new AnimatedExpandableListViewAdapter(getApplicationContext(), TimesListActivity.this, aux));
-                Toast.makeText(TimesListActivity.this, "atualizado..", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -46,20 +48,37 @@ public class TimesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_times_list);
         init();
 
-        if (!PreferencesHelper.dataContains(getApplicationContext(), "solves")){
-            solves = new ArrayList<>();
-        } else {
-            solves = PreferencesHelper.getSolvesList(getApplicationContext(), "solves");
-            if (solves.size() > 0){
-                Snackbar.make(button, "Solves foram carregadas", Snackbar.LENGTH_SHORT).show();
-            }
+        solves = SolvesHandler.getSolves(getApplicationContext());
+
+        if (solves.size() > 0){
+            Snackbar.make(button, "Solves foram carregadas", Snackbar.LENGTH_SHORT).show();
         }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesHelper.clearAllSolvesData(getApplicationContext());
-                solves.clear();
+                final AlertDialog.Builder alert = new AlertDialog.Builder(TimesListActivity.this);
+
+                alert.setTitle("ATENÇÃO!!");
+                alert.setMessage("Excluir TODOS OS TEMPOS da memória???");
+
+                alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PreferencesHelper.clearAllSolvesData(getApplicationContext());
+                        solves.clear();
+                        Toast.makeText(getApplicationContext(), "todos os tempos foram apagados!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //pass
+                    }
+                });
+
+                alert.show();
             }
         });
 

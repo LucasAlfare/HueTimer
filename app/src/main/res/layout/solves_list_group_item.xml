@@ -18,6 +18,9 @@
         android:text="Solve"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_dark"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="38dp" />
 
 </RelativeLayout>
