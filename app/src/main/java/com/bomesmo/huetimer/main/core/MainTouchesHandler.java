@@ -7,6 +7,7 @@ import android.view.View;
 import com.bomesmo.huetimer.main.auxiliar.Chronometer;
 import com.bomesmo.huetimer.main.auxiliar.Solve;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
+import com.bomesmo.huetimer.main.scrambles.Scramble;
 
 import java.util.Random;
 import java.util.Timer;
@@ -25,11 +26,15 @@ public class MainTouchesHandler implements View.OnTouchListener {
 
     private boolean isLong, started;
 
-    public MainTouchesHandler(Core core) {
+    MainTouchesHandler(Core core) {
         this.core = core;
     }
 
     private void start() {
+        for (int i = 2; i < core.getViews().length; i++){
+            core.getViews()[i].setEnabled(false);
+        }
+
         timer = new Timer();
         chronometer = new Chronometer(core.getMainActivity(), core.getDisplay());
         timer.scheduleAtFixedRate(chronometer, 0, 51);
@@ -37,13 +42,17 @@ public class MainTouchesHandler implements View.OnTouchListener {
     }
 
     private void stop() {
+        for (int i = 2; i < core.getViews().length; i++){
+            core.getViews()[i].setEnabled(true);
+        }
+
         timer.cancel();
         timer = null;
         started = false;
 
         //TODO: scramble correto
-        String scrambleSequence = new Random().nextInt() + "";
-        core.setTheScramble(scrambleSequence);
+        String scrambleSequence = Scramble.getScrambleByID(core.getScrambleID());
+        core.setScrambleShown(scrambleSequence);
 
         /* TODO: ADICIONAR SOLVES AQUI */
         Solve s = new Solve(chronometer.e, scrambleShown);
@@ -53,10 +62,10 @@ public class MainTouchesHandler implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            scrambleShown = core.getTheScramble();
+            scrambleShown = core.getScrambleShown();
 
             if (!started){
-                core.getDisplay().setTextSize(60f);
+                core.getDisplay().setTextSize(45f);
                 core.getDisplay().setTextColor(Color.YELLOW);
 
                 if (timerLong == null) {
@@ -83,7 +92,7 @@ public class MainTouchesHandler implements View.OnTouchListener {
 
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            core.getDisplay().setTextSize(80f);
+            core.getDisplay().setTextSize(55f);
             core.getDisplay().setTextColor(Color.BLACK);
             if (isLong) {
                 start();

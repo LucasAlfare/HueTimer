@@ -1,5 +1,6 @@
 package com.bomesmo.huetimer.main.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
@@ -22,18 +24,21 @@ import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 import com.bomesmo.huetimer.main.auxiliar.TF;
 import com.bomesmo.huetimer.main.core.Core;
 import com.bomesmo.huetimer.main.auxiliar.Solve;
+import com.bomesmo.huetimer.main.scrambles.Scramble;
 import com.bomesmo.huetimer.main.statistics.CurrentAvgX;
 import com.bomesmo.huetimer.main.statistics.Statistic;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private RelativeLayout mainScreen;
-    private TextView display, scramble;
+    private TextView display, scrambleView;
+    private FloatingActionButton fab;
     private ArrayList<Solve> solves;
+    private Core core;
+    private Scramble scrambleSequence;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -41,14 +46,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mainScreen = findViewById(R.id.mainScreen);
         display = findViewById(R.id.display);
-        scramble = findViewById(R.id.scramble);
+        scrambleView = findViewById(R.id.scramble);
+        fab = findViewById(R.id.fab);
+
         solves = SolvesHandler.getSolves(getApplicationContext());
+        core = new Core(MainActivity.this, mainScreen, display, scrambleView, fab);
+        core.setScrambleID(Scramble.RUBIKS_ID);
 
-        final Core core = new Core(MainActivity.this, mainScreen, display, scramble);
-
-        //TODO: scramble correto
-        String scrambleSequence = new Random().nextInt() + "";
-        core.setTheScramble(scrambleSequence);
+        //TODO: scrambleView correto
+        String scrambleSequence = Scramble.getScrambleByID(core.getScrambleID());
+        core.setScrambleShown(scrambleSequence);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,12 +64,11 @@ public class MainActivity extends AppCompatActivity
             display.setText("pronto!");
         }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Statistic avg5 = new CurrentAvgX(solves, 5);
-                Statistic avg12 = new CurrentAvgX(solves, 12);
+                Statistic avg5 = new CurrentAvgX(SolvesHandler.getSolves(getApplicationContext()), 5);
+                Statistic avg12 = new CurrentAvgX(SolvesHandler.getSolves(getApplicationContext()), 12);
 
                 String label =
                         "Avg5: " + (avg5.result() != 0 ? TF.format(avg5.result()) : "- -")  + "\n" +
@@ -114,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -125,7 +132,25 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.setRubiks) {
+            core.setScrambleID(Scramble.RUBIKS_ID);
+            String scrambleSequence = Scramble.getScrambleByID(Scramble.RUBIKS_ID);
+            core.setScrambleShown(scrambleSequence);
+            return true;
+        } else if (id == R.id.setPocket){
+            core.setScrambleID(Scramble.POCKET_ID);
+            String scrambleSequence = Scramble.getScrambleByID(Scramble.POCKET_ID);
+            core.setScrambleShown(scrambleSequence);
+            return true;
+        } else if (id == R.id.setSkewb){
+            core.setScrambleID(Scramble.SKEWB_ID);
+            String scrambleSequence = Scramble.getScrambleByID(Scramble.SKEWB_ID);
+            core.setScrambleShown(scrambleSequence);
+            return true;
+        } else if (id == R.id.setClock){
+            core.setScrambleID(Scramble.CLOCK_ID);
+            String scrambleSequence = Scramble.getScrambleByID(Scramble.CLOCK_ID);
+            core.setScrambleShown(scrambleSequence);
             return true;
         }
 

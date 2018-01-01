@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ccd1eb"
     android:orientation="vertical">
+
+    <!-- android:background="#ccd1eb" -->
 
     <EditText
         android:id="@+id/newTime"
@@ -20,9 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:textColor="@android:color/background_dark"
         android:background="?android:attr/editTextBackground"
         android:hint="novo scramble"
-        android:inputType="textPersonName" />
+        android:textColor="@android:color/background_dark" />
 
 </LinearLayout>

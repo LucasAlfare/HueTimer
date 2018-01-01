@@ -50,7 +50,7 @@ public class CurrentAvgX extends Statistic {
                                 "(" + TF.format(result[i - 1].getTime()) + ") " + result[i - 1].getScramble() + ";" :
                                 result[i - 1]);
 
-                stringBuilder.append("\n");
+                stringBuilder.append("\n\n");
             }
         }
 

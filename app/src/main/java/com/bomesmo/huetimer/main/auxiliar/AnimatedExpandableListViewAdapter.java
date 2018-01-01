@@ -1,6 +1,5 @@
 package com.bomesmo.huetimer.main.auxiliar;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -73,7 +72,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
         }
 
         TextView solveTime = convertView.findViewById(R.id.checkSolve);
-        solveTime.setText(TF.format(solves.get(groupPosition).getTime()));
+        if (!solves.isEmpty()) solveTime.setText((groupPosition + 1) + ")\t" + TF.format(solves.get(groupPosition).getTime()));
 
         return convertView;
     }
@@ -109,10 +108,13 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
 
                 alert.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        final EditText tempo = view.findViewById(R.id.newTime);
-                        final EditText scramble = view.findViewById(R.id.newScramble);
-                        Solve newValue = new Solve((long)(Double.parseDouble(tempo.getText().toString()) * 1000), scramble.getText().toString());
+                        EditText tempo = view.findViewById(R.id.newTime);
+                        tempo.setText(TF.format(solves.get(groupPosition).getTime()));
 
+                        EditText scramble = view.findViewById(R.id.newScramble);
+                        scramble.setText(solves.get(groupPosition).getScramble());
+
+                        Solve newValue = new Solve((long)(Double.parseDouble(tempo.getText().toString()) * 1000), scramble.getText().toString());
                         SolvesHandler.setSolve(context, groupPosition, newValue);
                     }
                 });
@@ -160,7 +162,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
                 String value =
-                        "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n" +
+                        "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n\n" +
                         "Tempo: " + TF.format(solves.get(groupPosition).getTime()) + "\n\n" +
                         "Embaralhamento: " + solves.get(groupPosition).getScramble();
 

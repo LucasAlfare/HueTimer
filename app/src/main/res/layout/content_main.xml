@@ -15,14 +15,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:fontFamily="@font/aldrich"
+        android:shadowColor="#687dbc"
+        android:shadowDx="-5"
+        android:shadowRadius="5"
         android:tag="display"
         android:text="pronto!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/background_dark"
-        android:shadowColor="#687dbc"
-        android:shadowRadius="5"
-        android:shadowDx="-5"
-        android:textSize="80sp" />
+        android:textSize="55sp" />
 
     <TextView
         android:id="@+id/scramble"
@@ -31,7 +32,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
+        android:maxWidth="280dp"
         android:text="scramble..."
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="15sp" />
 

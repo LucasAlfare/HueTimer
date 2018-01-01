@@ -193,7 +193,7 @@ public class Misc {
                             "(" + TF.format(result[i].getTime()) + ") " + result[i].getScramble() + ";" :
                             result[i]);
 
-            stringBuilder.append("\n");
+            stringBuilder.append("\n\n");
         }
 
         return stringBuilder.toString();

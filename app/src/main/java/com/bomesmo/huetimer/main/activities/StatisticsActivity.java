@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -87,6 +88,7 @@ public class StatisticsActivity extends AppCompatActivity {
      * @param stats Array de estatísticas utilizado para construir os botoões.
      */
     private void setupStatsButtons(final Statistic[] stats){
+        statisticsScreen.removeAllViewsInLayout();
         for (Statistic stat : stats) {
             Button curr = new Button(getApplicationContext());
             curr.setText(stat.name() + ": " + (stat.result() != 0 ? TF.format(stat.result()) : "- -"));
@@ -99,6 +101,24 @@ public class StatisticsActivity extends AppCompatActivity {
 
             statisticsScreen.addView(curr);
         }
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setupStatsButtons(statistics);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        setupStatsButtons(statistics);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupStatsButtons(statistics);
     }
 
     /**

@@ -17,6 +17,8 @@ public class Core {
     //mainScreen, display, scramble
     private View[] views;
 
+    private int scrambleID;
+
     public Core(MainActivity mainActivity, View... views){
         this.mainActivity = mainActivity;
         this.views = views;
@@ -28,13 +30,13 @@ public class Core {
         views[0].setOnTouchListener(new MainTouchesHandler(this));
     }
 
-    public void setTheScramble(String scramble){
-        TextView tv = getScramble();
+    public void setScrambleShown(String scramble){
+        TextView tv = getScrambleView();
         tv.setText(scramble);
     }
 
-    public String getTheScramble(){
-        TextView tv = getScramble();
+    public String getScrambleShown(){
+        TextView tv = getScrambleView();
         return tv.getText().toString();
     }
 
@@ -52,8 +54,20 @@ public class Core {
         return display;
     }
 
-    public TextView getScramble(){
+    public TextView getScrambleView(){
         TextView scramble = (TextView) views[2];
         return scramble;
+    }
+
+    public View[] getViews() {
+        return views;
+    }
+
+    public int getScrambleID() {
+        return scrambleID;
+    }
+
+    public void setScrambleID(int scrambleID) {
+        this.scrambleID = scrambleID;
     }
 }
