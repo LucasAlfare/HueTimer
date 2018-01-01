@@ -4,6 +4,8 @@ import com.bomesmo.huetimer.main.auxiliar.TF;
 
 /**
  * Created by Lucas on 24/12/2017.
+ *
+ * Esta classe é utilizada para manter os parâmetros de tempo e embaralhamento.
  */
 
 public class Solve {

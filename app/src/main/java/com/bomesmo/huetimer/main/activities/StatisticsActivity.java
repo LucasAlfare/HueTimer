@@ -84,11 +84,11 @@ public class StatisticsActivity extends AppCompatActivity {
 
     /**
      * Constrói um botão para cada estatística repassada. Cada botão terá o seu texto setado para
-     * o nome da esta tística + o resutlado da mesma. Além disso, cada botão terá um listener definido.
+     * o nome da esta tística + resutlado da mesma. Além disso, cada botão terá um listener definido.
      * @param stats Array de estatísticas utilizado para construir os botoões.
      */
     private void setupStatsButtons(final Statistic[] stats){
-        statisticsScreen.removeAllViewsInLayout();
+        //statisticsScreen.removeAllViewsInLayout();
         for (Statistic stat : stats) {
             Button curr = new Button(getApplicationContext());
             curr.setText(stat.name() + ": " + (stat.result() != 0 ? TF.format(stat.result()) : "- -"));

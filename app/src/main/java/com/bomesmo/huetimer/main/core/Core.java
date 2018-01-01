@@ -1,6 +1,7 @@
 package com.bomesmo.huetimer.main.core;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ public class Core {
 
     private MainActivity mainActivity;
 
-    //mainScreen, display, scramble
+    //mainScreen, display, scramble, floatingActionButton, setInsp
     private View[] views;
 
     private int scrambleID;
@@ -35,31 +36,32 @@ public class Core {
         tv.setText(scramble);
     }
 
-    public String getScrambleShown(){
+    String getScrambleShown(){
         TextView tv = getScrambleView();
         return tv.getText().toString();
     }
 
-    public MainActivity getMainActivity() {
+    MainActivity getMainActivity() {
         return mainActivity;
     }
 
     public RelativeLayout getMainDisplay(){
-        RelativeLayout mainDisplay = (RelativeLayout) views[0];
-        return mainDisplay;
+        return (RelativeLayout) views[0];
     }
 
-    public TextView getDisplay(){
-        TextView display = (TextView) views[1];
-        return display;
+    TextView getDisplay(){
+        return (TextView) views[1];
     }
 
-    public TextView getScrambleView(){
-        TextView scramble = (TextView) views[2];
-        return scramble;
+    TextView getScrambleView(){
+        return (TextView) views[2];
     }
 
-    public View[] getViews() {
+    CheckBox getSetInsp(){
+        return (CheckBox) views[4];
+    }
+
+    View[] getViews() {
         return views;
     }
 

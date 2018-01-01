@@ -14,9 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private RelativeLayout mainScreen;
     private TextView display, scrambleView;
     private FloatingActionButton fab;
+    private CheckBox setInspection;
     private ArrayList<Solve> solves;
     private Core core;
     private Scramble scrambleSequence;
@@ -48,12 +49,12 @@ public class MainActivity extends AppCompatActivity
         display = findViewById(R.id.display);
         scrambleView = findViewById(R.id.scramble);
         fab = findViewById(R.id.fab);
+        setInspection = findViewById(R.id.setInsp);
 
         solves = SolvesHandler.getSolves(getApplicationContext());
-        core = new Core(MainActivity.this, mainScreen, display, scrambleView, fab);
+        core = new Core(MainActivity.this, mainScreen, display, scrambleView, fab, setInspection);
         core.setScrambleID(Scramble.RUBIKS_ID);
 
-        //TODO: scrambleView correto
         String scrambleSequence = Scramble.getScrambleByID(core.getScrambleID());
         core.setScrambleShown(scrambleSequence);
 
