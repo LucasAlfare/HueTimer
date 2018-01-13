@@ -21,50 +21,32 @@ public class TF {
      * @param time tempo em milissegnudos a ser formatado.
      * @return texto contendo o valor de {@time} formatado.
      */
-    public static String format(long time){
+    public static String longToTimestamp(long time){
         long minutes = Long.parseLong(new SimpleDateFormat("mm", Locale.US).format(time));
         return minutes > 0 ? new SimpleDateFormat("mm:ss.SSS", Locale.US).format(time) : new SimpleDateFormat("ss.SSS", Locale.US).format(time);
     }
 
-    public static long stringToLong(String displayed){
-        String[] nums = displayed.replaceAll("\\.", ":").split(":");
+    /**
+     * Retorna um tempo no formato mm:ss.SSS para um valor do tipo {@long}.
+     *
+     * @param displayed String contendo tempo no formato mm:ss.SSS ou ss.SSS.
+     * @return valor total de {@displayed} em milissegundos.
+     */
+    public static long timestampToLong(String displayed){
+        String[] nums;
+        long r = 0;
 
-        long minutes = Long.parseLong(nums[0]) * 1000 * 10;
-        long seconds = Long.parseLong(nums[1]) * 1000;
-        long milisseconds = Long.parseLong(nums[2]);
+        if (displayed.contains(":")){
+            nums = displayed.replaceAll("\\.", ":").split(":");
+            r += Long.parseLong(nums[0]) * 60000;
+            r += Long.parseLong(nums[1]) * 1000;
+            r += Long.parseLong(nums[2]);
+        } else {
+            nums = displayed.split("\\.");
+            r += Long.parseLong(nums[0]) * 1000;
+            r += Long.parseLong(nums[1]);
+        }
 
-        System.out.println(minutes);
-        System.out.println(seconds);
-        System.out.println(milisseconds);
-        System.out.println();
-
-        return 0;
+        return r;
     }
-
-//    public static long stringToLong(String displayed){
-//        String pattern;
-//        if (displayed.contains(":") && displayed.contains(".")){
-//            pattern = "mm:ss.SSS";
-//        } else if (!displayed.contains(":") && displayed.contains(".")){
-//            pattern = "ss.SSS";
-//        } else {
-//            pattern = "SSS";
-//        }
-//
-//        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.US);
-//        Date date = null;
-//
-//        try {
-//            date = formatter.parse(displayed);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return date != null ? date.getTime() : 0;
-//    }
-
-//    public static void main(String[] args) {
-//        System.out.println(format(1000000));
-//        System.out.println(stringToLong("10:00.000"));
-//    }
 }

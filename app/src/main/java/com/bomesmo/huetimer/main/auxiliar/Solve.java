@@ -1,7 +1,5 @@
 package com.bomesmo.huetimer.main.auxiliar;
 
-import com.bomesmo.huetimer.main.auxiliar.TF;
-
 /**
  * Created by Lucas on 24/12/2017.
  *
@@ -36,6 +34,6 @@ public class Solve {
 
     @Override
     public String toString() {
-        return TF.format(time) + "\t" + scramble;
+        return TF.longToTimestamp(time) + "\t" + scramble;
     }
 }

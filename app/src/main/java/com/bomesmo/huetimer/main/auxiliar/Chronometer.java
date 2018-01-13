@@ -32,7 +32,7 @@ public class Chronometer extends TimerTask {
         mainActivity.runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                target.setText(TF.format(getElapsedTime()));
+                target.setText(TF.longToTimestamp(getElapsedTime()));
             }
         });
     }

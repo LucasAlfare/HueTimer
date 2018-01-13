@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity
                 Statistic avg12 = new CurrentAvgX(SolvesHandler.getSolves(getApplicationContext()), 12);
 
                 String label =
-                        "Avg5: " + (avg5.result() != 0 ? TF.format(avg5.result()) : "- -")  + "\n" +
-                        "Avg12: " + (avg12.result() != 0 ? TF.format(avg12.result()) : "- -");
+                        "Avg5: " + (avg5.result() != 0 ? TF.longToTimestamp(avg5.result()) : "- -")  + "\n" +
+                        "Avg12: " + (avg12.result() != 0 ? TF.longToTimestamp(avg12.result()) : "- -");
 
                 Snackbar.make(view, label, Snackbar.LENGTH_LONG)
                         .setAction("Deletar último", new View.OnClickListener() {

@@ -2,7 +2,6 @@ package com.bomesmo.huetimer.main.statistics;
 
 import com.bomesmo.huetimer.main.auxiliar.Solve;
 import com.bomesmo.huetimer.main.auxiliar.TF;
-import com.bomesmo.huetimer.main.statistics.Statistic;
 import com.bomesmo.huetimer.main.statistics.auxiliar.Misc;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class CurrentAvgX extends Statistic {
                         Misc.isBest
                                 (result[i - 1], result) ||
                                 Misc.isWorst(result[i - 1], result) ?
-                                "(" + TF.format(result[i - 1].getTime()) + ") " + result[i - 1].getScramble() + ";" :
+                                "(" + TF.longToTimestamp(result[i - 1].getTime()) + ") " + result[i - 1].getScramble() + ";" :
                                 result[i - 1]);
 
                 stringBuilder.append("\n\n");

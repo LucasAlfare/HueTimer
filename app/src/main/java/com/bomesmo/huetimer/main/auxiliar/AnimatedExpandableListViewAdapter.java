@@ -72,7 +72,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
         }
 
         TextView solveTime = convertView.findViewById(R.id.checkSolve);
-        if (!solves.isEmpty()) solveTime.setText((groupPosition + 1) + ")\t" + TF.format(solves.get(groupPosition).getTime()));
+        if (!solves.isEmpty()) solveTime.setText((groupPosition + 1) + ")\t" + TF.longToTimestamp(solves.get(groupPosition).getTime()));
 
         return convertView;
     }
@@ -114,7 +114,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
                 alert.setView(view);
 
                 final EditText tempo = view.findViewById(R.id.newTime);
-                tempo.setText(TF.format(solves.get(groupPosition).getTime()));
+                tempo.setText(TF.longToTimestamp(solves.get(groupPosition).getTime()));
 
                 final EditText scramble = view.findViewById(R.id.newScramble);
                 scramble.setText(solves.get(groupPosition).getScramble());
@@ -123,23 +123,23 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
                     public void onClick(DialogInterface dialog, int whichButton) {
 
                         Solve newValue = new Solve(
-                                                    (long)(Double.parseDouble(tempo.getText().toString()) * 1000),
+                                                    TF.timestampToLong(tempo.getText().toString()),
                                                     scramble.getText().toString());
 
                         /*
                           Solve newValue = new Solve(
-                         TF.stringToLong(tempo.getText().toString()),
+                         TF.timestampToLong(tempo.getText().toString()),
                          scramble.getText().toString());
                          */
 
                         SolvesHandler.setSolve(context, groupPosition, newValue);
-
+                        Toast.makeText(context, "Editado!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
+                        // pass
                     }
                 });
 
@@ -153,7 +153,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
                 final AlertDialog.Builder alert = new AlertDialog.Builder(timesListActivity);
 
                 alert.setTitle("ATENÇÃO!!");
-                alert.setMessage("Excluir o tempo " + TF.format(solves.get(groupPosition).getTime()) + "???");
+                alert.setMessage("Excluir o tempo " + TF.longToTimestamp(solves.get(groupPosition).getTime()) + "???");
 
                 alert.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
                     @Override
@@ -181,7 +181,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
 
                 String value =
                         "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n\n" +
-                        "Tempo: " + TF.format(solves.get(groupPosition).getTime()) + "\n\n" +
+                        "Tempo: " + TF.longToTimestamp(solves.get(groupPosition).getTime()) + "\n\n" +
                         "Embaralhamento: " + solves.get(groupPosition).getScramble();
 
                 shareIntent.putExtra(Intent.EXTRA_TEXT, value);

@@ -3,7 +3,6 @@ package com.bomesmo.huetimer.main.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.auxiliar.Solve;
@@ -92,7 +90,7 @@ public class StatisticsActivity extends AppCompatActivity {
         statisticsScreen.removeAllViewsInLayout();
         for (Statistic stat : stats) {
             Button curr = new Button(getApplicationContext());
-            curr.setText(stat.name() + ": " + (stat.result() != 0 ? TF.format(stat.result()) : "- -"));
+            curr.setText(stat.name() + ": " + (stat.result() != 0 ? TF.longToTimestamp(stat.result()) : "- -"));
 
             if (stat.result() != 0){
                 curr.setOnClickListener(new StatButtonListener(stat.name(), stat.result(), stat.details()));
@@ -172,7 +170,7 @@ public class StatisticsActivity extends AppCompatActivity {
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
                             String value = "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n\n\n" +
-                            "Resultado/" + statisticName + ": " + TF.format(statisticResult) + "\n\n" +
+                            "Resultado/" + statisticName + ": " + TF.longToTimestamp(statisticResult) + "\n\n" +
                             "Solves da estatística: " + statisticDetails;
 
                     shareIntent.putExtra(Intent.EXTRA_TEXT, value.trim());

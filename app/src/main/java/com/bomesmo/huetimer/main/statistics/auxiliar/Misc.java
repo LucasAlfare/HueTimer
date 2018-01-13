@@ -190,7 +190,7 @@ public class Misc {
                     Misc.isBest
                             (result[i], result) ||
                             Misc.isWorst(result[i], result) ?
-                            "(" + TF.format(result[i].getTime()) + ") " + result[i].getScramble() + ";" :
+                            "(" + TF.longToTimestamp(result[i].getTime()) + ") " + result[i].getScramble() + ";" :
                             result[i]);
 
             stringBuilder.append("\n\n");
