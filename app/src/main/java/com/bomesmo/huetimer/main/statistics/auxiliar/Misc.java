@@ -184,7 +184,7 @@ public class Misc {
 
         for (int i = 0; i < result.length; i++){
             stringBuilder.append(String.valueOf(i + 1));
-            stringBuilder.append(". ");
+            stringBuilder.append("\t ");
 
             stringBuilder.append(
                     Misc.isBest

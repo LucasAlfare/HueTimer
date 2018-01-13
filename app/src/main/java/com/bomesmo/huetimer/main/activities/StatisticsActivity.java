@@ -1,5 +1,6 @@
 package com.bomesmo.huetimer.main.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +62,6 @@ public class StatisticsActivity extends AppCompatActivity {
                 new Worst(solves),
                 new OverrMean(solves),
                 new OverrAverage(solves),
-                new OverrAverage(solves),
 
                 new CurrentAvgX(solves, 5),
                 new BestAvgX(solves, 5),
@@ -88,7 +89,7 @@ public class StatisticsActivity extends AppCompatActivity {
      * @param stats Array de estatísticas utilizado para construir os botoões.
      */
     private void setupStatsButtons(final Statistic[] stats){
-        //statisticsScreen.removeAllViewsInLayout();
+        statisticsScreen.removeAllViewsInLayout();
         for (Statistic stat : stats) {
             Button curr = new Button(getApplicationContext());
             curr.setText(stat.name() + ": " + (stat.result() != 0 ? TF.format(stat.result()) : "- -"));
@@ -138,38 +139,28 @@ public class StatisticsActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            final AlertDialog.Builder alert = new AlertDialog.Builder(StatisticsActivity.this);
-            alert.setTitle(statisticName);
-
-            /*
-            Contruindo layout simples para ser exibido no alert
-             */
-            LinearLayout ll = new LinearLayout(getApplicationContext());
-            ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-            ll.setOrientation(LinearLayout.VERTICAL);
-
-            TextView tv = new TextView(getApplicationContext());
-            tv.setTextColor(Color.DKGRAY);
-            tv.setText("solves:");
-
             /*
             EditText que mostra várias linhas e que não permite edições, apenas seleção de texto
              */
-            EditText details = new EditText(getApplicationContext());
-            details.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
-            details.setTextIsSelectable(true);
-            details.setSingleLine(false);
-            details.setKeyListener(null);
-            details.setTextSize(14f);
-            details.setHint("stat...");
-            details.setTextColor(Color.BLACK);
 
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            final View view = layoutInflater.inflate(R.layout.statistic_detail_alert, null, false);
+
+            final AlertDialog.Builder alert = new AlertDialog.Builder(StatisticsActivity.this);
+            alert.setTitle(statisticName);
+
+            final EditText details = view.findViewById(R.id.detailsBox);
             if (!statisticDetails.equals("")) details.setText(statisticDetails);
 
-            ll.addView(tv);
-            ll.addView(details);
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    details.selectAll();
+                }
+            });
 
-            alert.setView(ll);
+            alert.setView(view);
 
             /*
             botão positivo do alert implementa compartilhamento do conteúdo do EdtText
@@ -177,13 +168,14 @@ public class StatisticsActivity extends AppCompatActivity {
             alert.setPositiveButton("Compartilhar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
-                            String value = "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n" +
-                            "Resultado da estatística: " + TF.format(statisticResult) + "\n" +
+                            String value = "TEXTO GERADO PELO HUETIMER!! afff kkkk" + "\n\n\n" +
+                            "Resultado/" + statisticName + ": " + TF.format(statisticResult) + "\n\n" +
                             "Solves da estatística: " + statisticDetails;
 
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, value);
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, value.trim());
                     shareIntent.setType("text/plain");
 
                     startActivity(shareIntent);

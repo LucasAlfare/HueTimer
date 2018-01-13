@@ -23,13 +23,14 @@
                 android:id="@+id/detailsBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/editTextBackground"
+                android:background="@android:drawable/editbox_background_normal"
                 android:ems="10"
                 android:hint="detalhes aqui.."
                 android:inputType="none"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/background_dark"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

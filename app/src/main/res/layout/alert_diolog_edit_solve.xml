@@ -10,7 +10,7 @@
         android:id="@+id/newTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/editTextBackground"
+        android:background="@android:drawable/editbox_background_normal"
         android:ems="10"
         android:hint="novo tempo"
         android:inputType="numberDecimal"
@@ -20,8 +20,8 @@
         android:id="@+id/newScramble"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background_normal"
         android:ems="10"
-        android:background="?android:attr/editTextBackground"
         android:hint="novo scramble"
         android:textColor="@android:color/background_dark" />
 

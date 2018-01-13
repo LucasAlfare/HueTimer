@@ -12,13 +12,13 @@
     <item
         android:id="@+id/setRubiks"
         android:orderInCategory="100"
-        android:title="Cubo 3x3"
+        android:title="3x3"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/setPocket"
         android:orderInCategory="100"
-        android:title="Cubo 2x2"
+        android:title="2x2"
         app:showAsAction="never" />
 
     <item

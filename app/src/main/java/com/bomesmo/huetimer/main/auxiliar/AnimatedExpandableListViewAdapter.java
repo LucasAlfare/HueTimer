@@ -78,7 +78,7 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
     }
 
     @Override
-    public View getRealChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getRealChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
@@ -89,8 +89,15 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
         ImageButton deleteSolve = convertView.findViewById(R.id.deleteSolve);
         ImageButton shareSolve = convertView.findViewById(R.id.shareSolve);
 
-        EditText scrambleBox = convertView.findViewById(R.id.scrambleBox);
+        final EditText scrambleBox = convertView.findViewById(R.id.scrambleBox);
         scrambleBox.setText(solves.get(groupPosition).getScramble());
+
+        scrambleBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrambleBox.selectAll();
+            }
+        });
 
         editSolve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,20 +109,31 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
 
                 LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
-                final View view = layoutInflater.inflate(R.layout.alert_diolog_edit_solve, null, false);
+                final View view = layoutInflater.inflate(R.layout.alert_diolog_edit_solve, parent, false);
 
                 alert.setView(view);
 
+                final EditText tempo = view.findViewById(R.id.newTime);
+                tempo.setText(TF.format(solves.get(groupPosition).getTime()));
+
+                final EditText scramble = view.findViewById(R.id.newScramble);
+                scramble.setText(solves.get(groupPosition).getScramble());
+
                 alert.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        EditText tempo = view.findViewById(R.id.newTime);
-                        tempo.setText(TF.format(solves.get(groupPosition).getTime()));
 
-                        EditText scramble = view.findViewById(R.id.newScramble);
-                        scramble.setText(solves.get(groupPosition).getScramble());
+                        Solve newValue = new Solve(
+                                                    (long)(Double.parseDouble(tempo.getText().toString()) * 1000),
+                                                    scramble.getText().toString());
 
-                        Solve newValue = new Solve((long)(Double.parseDouble(tempo.getText().toString()) * 1000), scramble.getText().toString());
+                        /*
+                          Solve newValue = new Solve(
+                         TF.stringToLong(tempo.getText().toString()),
+                         scramble.getText().toString());
+                         */
+
                         SolvesHandler.setSolve(context, groupPosition, newValue);
+
                     }
                 });
 
