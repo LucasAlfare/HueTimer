@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="CubeView">
+        <attr name="sequence" format="string" />
+    </declare-styleable>
+</resources>

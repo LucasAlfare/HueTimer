@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#ff4081</color>
+    <color name="accent_material_dark">#000000</color>
+    <color name="primary_material_dark">#535982</color>
+    <color name="foreground_material_dark">#000000</color>
+
+    <color name="minhaPrimary">#32a22a</color>
+    <color name="minhaPrimaryDark">#1A5C15</color>
+    <color name="minhaAccent">#e17822</color>
 </resources>

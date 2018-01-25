@@ -5,9 +5,10 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.auxiliar.Chronometer;
+import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 import com.bomesmo.huetimer.main.auxiliar.Solve;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
-import com.bomesmo.huetimer.main.scrambles.Scramble;
+import com.bomesmo.huetimer.main.puzzles.scrambles.Scramble;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,7 +40,7 @@ public class MainTouchesHandler implements View.OnTouchListener {
                 core.getMainActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        core.getDisplay().setText(count-- + "");
+                        core.getDisplay().setText(count >= 0 ? count-- + "" : "DNF");
                     }
                 });
             }
@@ -109,7 +110,10 @@ public class MainTouchesHandler implements View.OnTouchListener {
                                     }
                                 });
                             }
-                        }, 300, 1000);
+                        },
+                                PreferencesHelper.getIntegerPreference(
+                                        core.getMainActivity().getApplicationContext(),
+                                        "pressing_time"), 1000);
                     }
                 }
 
@@ -135,7 +139,10 @@ public class MainTouchesHandler implements View.OnTouchListener {
                                     }
                                 });
                             }
-                        }, 300, 1000);
+                        },
+                                PreferencesHelper.getIntegerPreference(
+                                        core.getMainActivity().getApplicationContext(),
+                                        "pressing_time"), 1000);
                     }
                 } else {
                     stop();

@@ -1,12 +1,7 @@
 package com.bomesmo.huetimer.main.auxiliar;
 
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -19,7 +14,7 @@ public class TF {
      * Método que formata um valor de tempo em milissegundos para {minutos:segundos.milissegundos}.
      *
      * @param time tempo em milissegnudos a ser formatado.
-     * @return texto contendo o valor de {@time} formatado.
+     * @return texto contendo o valor de {@code time} formatado.
      */
     public static String longToTimestamp(long time){
         long minutes = Long.parseLong(new SimpleDateFormat("mm", Locale.US).format(time));
@@ -27,10 +22,10 @@ public class TF {
     }
 
     /**
-     * Retorna um tempo no formato mm:ss.SSS para um valor do tipo {@long}.
+     * Retorna um tempo no formato mm:ss.SSS para um valor do tipo {@code long}.
      *
      * @param displayed String contendo tempo no formato mm:ss.SSS ou ss.SSS.
-     * @return valor total de {@displayed} em milissegundos.
+     * @return valor total de {@code displayed} em milissegundos.
      */
     public static long timestampToLong(String displayed){
         String[] nums;

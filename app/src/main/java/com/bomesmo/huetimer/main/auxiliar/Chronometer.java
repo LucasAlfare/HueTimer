@@ -8,6 +8,10 @@ import java.util.TimerTask;
 
 /**
  * Created by Lucas on 24/12/2017.
+ *
+ *
+ * Classe simples que é responsável por retornar o tempo decorrido do cronômetro,
+ * bem como atualizar o texto do display.
  */
 
 public class Chronometer extends TimerTask {
@@ -15,6 +19,7 @@ public class Chronometer extends TimerTask {
     private MainActivity mainActivity;
     private TextView target;
     private long i = System.currentTimeMillis();
+
     public long e;
 
     public Chronometer(MainActivity mainActivity, TextView target) {
@@ -22,11 +27,15 @@ public class Chronometer extends TimerTask {
         this.target = target;
     }
 
-    public long getElapsedTime(){
+    private long getElapsedTime(){
         e = System.currentTimeMillis() - i;
         return e;
     }
 
+    /**
+     * Utiliza-se o método runOnUiThread para alterar algo da view, uma vez que
+     * views só podem ser atualizadas na thread principal da atividade.
+     */
     @Override
     public void run() {
         mainActivity.runOnUiThread(new Runnable(){

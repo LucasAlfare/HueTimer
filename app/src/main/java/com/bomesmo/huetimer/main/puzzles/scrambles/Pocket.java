@@ -1,4 +1,4 @@
-package com.bomesmo.huetimer.main.scrambles;
+package com.bomesmo.huetimer.main.puzzles.scrambles;
 
 /**
  * Created by Lucas on 31/12/2017.

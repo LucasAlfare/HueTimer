@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bomesmo.huetimer.main.activities.fewst_moves_helper.FewestMovesHelperActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/scrambleSequenceBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:drawable/editbox_background_normal"
+            android:ems="10"
+            android:hint="scramble (separe os movimentos com espaços)"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/background_dark"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/solveSequenceBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/scrambleSequenceBox"
+            android:ems="10"
+            android:hint="solve (scramble + solve)..."
+            android:inputType="none"
+            android:textColor="@android:color/background_dark"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:background="@android:drawable/editbox_background_normal"
+            android:textIsSelectable="true"
+            android:textSize="14sp"/>
+
+        <RelativeLayout
+            android:id="@+id/buttonsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/darker_gray">
+
+            <Button
+                android:id="@+id/u"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:tag="U"
+                android:text="U" />
+
+            <Button
+                android:id="@+id/uuu"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@+id/u"
+                android:tag="U'"
+                android:text="U'" />
+
+            <Button
+                android:id="@+id/uu"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@id/uuu"
+                android:tag="U2"
+                android:text="U2" />
+
+            <Button
+                android:id="@+id/d"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_alignEnd="@+id/ddd"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/ddd"
+                android:layout_toEndOf="@+id/u"
+                android:layout_toRightOf="@+id/u"
+                android:tag="D"
+                android:text="D" />
+
+            <Button
+                android:id="@+id/ddd"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@id/d"
+                android:layout_toEndOf="@+id/u"
+                android:layout_toRightOf="@+id/u"
+                android:tag="D'"
+                android:text="D'" />
+
+            <Button
+                android:id="@+id/dd"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@id/ddd"
+                android:layout_toEndOf="@+id/u"
+                android:layout_toRightOf="@+id/u"
+                android:tag="D2"
+                android:text="D2" />
+
+            <Button
+                android:id="@+id/r"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_above="@+id/ddd"
+                android:layout_toEndOf="@+id/d"
+                android:layout_toRightOf="@+id/d"
+                android:tag="R"
+                android:text="R" />
+
+            <Button
+                android:id="@+id/rrr"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_above="@+id/dd"
+                android:layout_toEndOf="@+id/d"
+                android:layout_toRightOf="@+id/d"
+                android:tag="R'"
+                android:text="R'" />
+
+            <Button
+                android:id="@+id/rr"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_alignBottom="@+id/dd"
+                android:layout_toEndOf="@+id/ddd"
+                android:layout_toRightOf="@+id/ddd"
+                android:tag="R2"
+                android:text="R2" />
+
+            <Button
+                android:id="@+id/f"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/r"
+                android:layout_toRightOf="@+id/r"
+                android:tag="F"
+                android:text="F" />
+
+            <Button
+                android:id="@+id/fff"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@+id/f"
+                android:layout_toEndOf="@+id/r"
+                android:layout_toRightOf="@+id/r"
+                android:tag="F'"
+                android:text="F'" />
+
+            <Button
+                android:id="@+id/ff"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@+id/rrr"
+                android:layout_toEndOf="@+id/rrr"
+                android:layout_toRightOf="@+id/rrr"
+                android:tag="F2"
+                android:text="F2" />
+
+            <Button
+                android:id="@+id/b"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/f"
+                android:layout_toRightOf="@+id/f"
+                android:tag="B"
+                android:text="B" />
+
+            <Button
+                android:id="@+id/bbb"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_below="@+id/f"
+                android:layout_toEndOf="@+id/fff"
+                android:layout_toRightOf="@+id/fff"
+                android:tag="B'"
+                android:text="B'" />
+
+            <Button
+                android:id="@+id/bb"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="updateSolveSequenceBox"
+                android:layout_alignBottom="@+id/ff"
+                android:layout_toEndOf="@+id/fff"
+                android:layout_toRightOf="@+id/fff"
+                android:tag="B2"
+                android:text="B2" />
+
+            <Button
+                android:id="@+id/apagar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/bb"
+                android:onClick="backspace"
+                android:text="@string/backspace" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/verScramble"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_above="@+id/buttonsContainer"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:onClick="verSolve"
+            android:textSize="12sp"
+            android:text="Ver sua solve" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_above="@+id/verScramble"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:onClick="verScramble"
+            android:textSize="12sp"
+            android:text="Ver scramble" />
+    </RelativeLayout>
+</RelativeLayout>

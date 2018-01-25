@@ -3,6 +3,7 @@ package com.bomesmo.huetimer.main.auxiliar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.activities.TimesListActivity;
+import com.bomesmo.huetimer.main.statistics.auxiliar.Misc;
 
 import java.util.ArrayList;
 
@@ -72,7 +74,15 @@ public class AnimatedExpandableListViewAdapter extends AnimatedExpandableListVie
         }
 
         TextView solveTime = convertView.findViewById(R.id.checkSolve);
-        if (!solves.isEmpty()) solveTime.setText((groupPosition + 1) + ")\t" + TF.longToTimestamp(solves.get(groupPosition).getTime()));
+        if (!solves.isEmpty()){
+            solveTime.setText((groupPosition + 1) + ")\t" + TF.longToTimestamp(solves.get(groupPosition).getTime()));
+
+//            if (Misc.isBest(solves.get(groupPosition), solves.toArray(new Solve[solves.size()]))){
+//                solveTime.setBackgroundColor(Color.GREEN);
+//            } else if (Misc.isWorst(solves.get(groupPosition), solves.toArray(new Solve[solves.size()]))){
+//                solveTime.setBackgroundColor(Color.RED);
+//            }
+        }
 
         return convertView;
     }

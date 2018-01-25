@@ -19,8 +19,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.StatisticsActivity" />
-        <activity android:name=".activities.TimesListActivity" />
+        <activity android:name=".activities.StatisticsActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bomesmo.huetimer.main.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.TimesListActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bomesmo.huetimer.main.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.AboutActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bomesmo.huetimer.main.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.ViewTestActivity" />
+
+        <activity android:name=".activities.fewst_moves_helper.FewestMovesHelperActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.bomesmo.huetimer.main.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,10 +1,14 @@
 package com.bomesmo.huetimer.main.activities;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,15 +20,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
+import com.bomesmo.huetimer.main.activities.fewst_moves_helper.FewestMovesHelperActivity;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 import com.bomesmo.huetimer.main.auxiliar.TF;
 import com.bomesmo.huetimer.main.core.Core;
 import com.bomesmo.huetimer.main.auxiliar.Solve;
-import com.bomesmo.huetimer.main.scrambles.Scramble;
+import com.bomesmo.huetimer.main.puzzles.scrambles.Scramble;
 import com.bomesmo.huetimer.main.statistics.CurrentAvgX;
 import com.bomesmo.huetimer.main.statistics.Statistic;
 
@@ -35,35 +42,22 @@ public class MainActivity extends AppCompatActivity
 
     private RelativeLayout mainScreen;
     private TextView display, scrambleView;
-    private FloatingActionButton fab;
-    private CheckBox setInspection;
+    private FloatingActionButton fab, fab2;
+    private CheckBox toggleInspection;
     private ArrayList<Solve> solves;
     private Core core;
-    private Scramble scrambleSequence;
+
+    private int pressing_time;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainScreen = findViewById(R.id.mainScreen);
-        display = findViewById(R.id.display);
-        scrambleView = findViewById(R.id.scramble);
-        fab = findViewById(R.id.fab);
-        setInspection = findViewById(R.id.setInsp);
 
-        solves = SolvesHandler.getSolves(getApplicationContext());
-        core = new Core(MainActivity.this, mainScreen, display, scrambleView, fab, setInspection);
-        core.setScrambleID(Scramble.RUBIKS_ID);
-
-        String scrambleSequence = Scramble.getScrambleByID(core.getScrambleID());
-        core.setScrambleShown(scrambleSequence);
+        init();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        if (solves.isEmpty()){
-            display.setText("pronto!");
-        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +87,62 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                alert.setTitle("Configurações rápidas");
+
+                LayoutInflater layoutInflater = getLayoutInflater();
+                View view = layoutInflater.inflate(R.layout.settings_fab2_layout, null);
+
+                alert.setView(view);
+
+                final SeekBar seekBar = view.findViewById(R.id.minhaBarra);
+                seekBar.setProgress(pressing_time / 10);
+
+                final TextView seekBarTarget = view.findViewById(R.id.seekBarTarget);
+                seekBarTarget.setText((pressing_time) + " milissegundos");
+
+                final CheckBox useSounds = view.findViewById(R.id.useSounds);
+
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                        pressing_time = progress * 10;
+                        seekBarTarget.setText((pressing_time) + " milissegundos");
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                alert.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PreferencesHelper.addIntegerPreference(getApplicationContext(), "pressing_time", pressing_time);
+                        Toast.makeText(MainActivity.this, "Todas as preferências foram salvas!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //pass
+                    }
+                });
+
+                alert.show();
+            }
+        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,6 +151,29 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void init(){
+        mainScreen = findViewById(R.id.mainScreen);
+        display = findViewById(R.id.display);
+        scrambleView = findViewById(R.id.scramble);
+        fab = findViewById(R.id.fab);
+        fab2 = findViewById(R.id.fab2);
+        toggleInspection = findViewById(R.id.setInsp);
+
+        solves = SolvesHandler.getSolves(getApplicationContext());
+
+        core = new Core(MainActivity.this, mainScreen, display, scrambleView, fab, toggleInspection, fab2);
+        core.setScrambleID(Scramble.RUBIKS_ID);
+
+        String scrambleSequence = Scramble.getScrambleByID(core.getScrambleID());
+        core.setScrambleShown(scrambleSequence);
+
+        if (solves.isEmpty()) display.setText("pronto!");
+
+        if (PreferencesHelper.dataContains(getApplicationContext(), "pressing_time")){
+            pressing_time = PreferencesHelper.getIntegerPreference(getApplicationContext(), "pressing_time");
+        }
     }
 
     @Override
@@ -121,7 +194,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -158,9 +230,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Intent intent = null;
 
@@ -168,8 +239,10 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, TimesListActivity.class);
         } else if (id == R.id.nav_statistics) {
             intent = new Intent(this, StatisticsActivity.class);
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.about) {
+            intent = new Intent(this, AboutActivity.class);
+        } else if (id == R.id.nav_fm_helper){
+            intent = new Intent(this, FewestMovesHelperActivity.class);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -178,3 +251,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 }
+
+

@@ -15,7 +15,7 @@ public class Core {
 
     private MainActivity mainActivity;
 
-    //mainScreen, display, scramble, floatingActionButton, setInsp
+    //mainScreen, display, toggleScramble, floatingActionButton, setInsp, fab2
     private View[] views;
 
     private int scrambleID;

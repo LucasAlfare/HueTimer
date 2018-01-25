@@ -50,6 +50,19 @@ public class PreferencesHelper {
         editor.commit();
     }
 
+    public static void addIntegerPreference(Context context, String key, int value){
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferenceManager.edit();
+        editor.putInt(key, value);
+        editor.apply();
+        editor.commit();
+    }
+
+    public static int getIntegerPreference(Context context, String key){
+        SharedPreferences preferenceManager = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferenceManager.getInt(key, 0);
+    }
+
     public static boolean dataContains(Context context, String key){
         return PreferenceManager.getDefaultSharedPreferences(context).contains(key);
     }

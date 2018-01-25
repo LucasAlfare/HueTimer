@@ -12,12 +12,17 @@
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_menu_timer_black"
             android:title="Estatísticas" />
+
+        <item
+            android:id="@+id/nav_fm_helper"
+            android:icon="@drawable/ic_menu_fm_black"
+            android:title="Fewest Moves Helper" />
     </group>
 
-    <item android:title="Social">
+    <item android:title="Aplicação">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/about"
                 android:icon="@android:drawable/ic_menu_help"
                 android:title="Sobre..." />
         </menu>
