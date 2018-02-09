@@ -6,7 +6,7 @@ android {
         applicationId "com.bomesmo.huetimer.main"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 7
+        versionCode 8
         versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -32,4 +32,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/gson-2.6.2.jar')
+    implementation files('libs/Square-1 cs Object.jar')
+    implementation files('libs/Square-1 PBL Finder.jar')
 }

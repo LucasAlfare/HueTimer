@@ -2,7 +2,7 @@ package com.bomesmo.huetimer.main.puzzles.scrambles.rubiks;
 
 import java.util.Arrays;
 
-public class Cube {
+public class RubiksCube {
 
     private Sticker[] u = new Sticker[9];
     private Sticker[] d = new Sticker[9];
@@ -15,7 +15,7 @@ public class Cube {
 
     private String sequence;
 
-    public Cube() {
+    public RubiksCube() {
         for (int i = 0; i < u.length; i++){
             u[i] = Sticker.WHITE;
         }
@@ -38,7 +38,7 @@ public class Cube {
         }
     }
 
-    public Cube(String sequence) {
+    public RubiksCube(String sequence) {
         for (int i = 0; i < u.length; i++){
             u[i] = Sticker.WHITE;
         }

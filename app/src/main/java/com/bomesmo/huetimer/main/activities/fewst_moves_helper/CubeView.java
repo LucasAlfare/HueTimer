@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.puzzles.scrambles.rubiks.Cube;
+import com.bomesmo.huetimer.main.puzzles.scrambles.rubiks.RubiksCube;
 import com.bomesmo.huetimer.main.puzzles.scrambles.rubiks.Sticker;
 
 /**
@@ -19,25 +19,25 @@ import com.bomesmo.huetimer.main.puzzles.scrambles.rubiks.Sticker;
  */
 public class CubeView extends View {
 
-    private Cube cube;
+    private RubiksCube rubiksCube;
     private String sequence;
     private float sqSize = 10;
 
-    public CubeView(Context context, Cube cube) {
+    public CubeView(Context context, RubiksCube rubiksCube) {
         super(context);
-        this.cube = cube;
+        this.rubiksCube = rubiksCube;
     }
 
-    public CubeView(Context context, AttributeSet attrs, Cube cube) {
+    public CubeView(Context context, AttributeSet attrs, RubiksCube rubiksCube) {
         super(context, attrs);
-        this.cube = cube;
+        this.rubiksCube = rubiksCube;
 
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.CubeView);
         CharSequence foo_cs = arr.getString(R.styleable.CubeView_sequence);
 
         if (foo_cs != null) {
             // Do something with foo_cs.toString()
-            this.cube.applySequence(foo_cs.toString());
+            this.rubiksCube.applySequence(foo_cs.toString());
         }
 
         arr.recycle();  // Do this when done.
@@ -45,18 +45,18 @@ public class CubeView extends View {
 
     public CubeView(Context context) {
         super(context);
-        this.cube = new Cube();
+        this.rubiksCube = new RubiksCube();
     }
 
     public CubeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.cube = new Cube();
+        this.rubiksCube = new RubiksCube();
 
         TypedArray arr = context.obtainStyledAttributes(attrs, R.styleable.CubeView);
         CharSequence foo_cs = arr.getString(R.styleable.CubeView_sequence);
         if (foo_cs != null) {
             // Do something with foo_cs.toString()
-            this.cube.applySequence((String) foo_cs);
+            this.rubiksCube.applySequence((String) foo_cs);
         }
 
         arr.recycle();  // Do this when done.
@@ -64,7 +64,7 @@ public class CubeView extends View {
 
     public CubeView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.cube = new Cube();
+        this.rubiksCube = new RubiksCube();
     }
 
     @Override
@@ -75,12 +75,12 @@ public class CubeView extends View {
           Desenhando as 6 faces do cubo
          */
 
-        /*azul     */ drawCubeFace(cube.getB(), 3 * sqSize, 0 * sqSize, canvas);
-        /*laranja  */ drawCubeFace(cube.getL(), 0 * sqSize, 3 * sqSize, canvas);
-        /*branco   */ drawCubeFace(cube.getU(), 3 * sqSize, 3 * sqSize, canvas);
-        /*vermelho */ drawCubeFace(cube.getR(), 6 * sqSize, 3 * sqSize, canvas);
-        /*amarelo  */ drawCubeFace(cube.getD(), 9 * sqSize, 3 * sqSize, canvas);
-        /*verde    */ drawCubeFace(cube.getF(), 3 * sqSize, 6 * sqSize, canvas);
+        /*azul     */ drawCubeFace(rubiksCube.getB(), 3 * sqSize, 0 * sqSize, canvas);
+        /*laranja  */ drawCubeFace(rubiksCube.getL(), 0 * sqSize, 3 * sqSize, canvas);
+        /*branco   */ drawCubeFace(rubiksCube.getU(), 3 * sqSize, 3 * sqSize, canvas);
+        /*vermelho */ drawCubeFace(rubiksCube.getR(), 6 * sqSize, 3 * sqSize, canvas);
+        /*amarelo  */ drawCubeFace(rubiksCube.getD(), 9 * sqSize, 3 * sqSize, canvas);
+        /*verde    */ drawCubeFace(rubiksCube.getF(), 3 * sqSize, 6 * sqSize, canvas);
     }
 
     private void drawCubeFace(Sticker[] face, float x, float y, Canvas canvas){
@@ -180,11 +180,11 @@ public class CubeView extends View {
         this.sequence = sequence;
     }
 
-    public Cube getCube() {
-        return cube;
+    public RubiksCube getRubiksCube() {
+        return rubiksCube;
     }
 
-    public void setCube(Cube cube) {
-        this.cube = cube;
+    public void setRubiksCube(RubiksCube rubiksCube) {
+        this.rubiksCube = rubiksCube;
     }
 }

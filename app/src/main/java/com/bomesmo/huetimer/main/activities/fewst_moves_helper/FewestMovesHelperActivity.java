@@ -66,7 +66,7 @@ public class FewestMovesHelperActivity extends AppCompatActivity {
 
         CubeView cubeView = view.findViewById(R.id.cubeView);
 
-        cubeView.getCube().applySequence(sequence);
+        cubeView.getRubiksCube().applySequence(sequence);
 
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(FewestMovesHelperActivity.this);
