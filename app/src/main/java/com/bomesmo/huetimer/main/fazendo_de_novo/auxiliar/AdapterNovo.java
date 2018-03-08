@@ -1,20 +1,25 @@
 package com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Read;
+import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
+import com.bomesmo.huetimer.main.fazendo_de_novo.fragments.SolvesFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Lucas on 07/03/2018.
@@ -90,7 +95,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
     }
 
     @Override
-    public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
+    public View getRealChildView(final int groupPosition, int childPosition, boolean isLastChild, final View convertView, final ViewGroup parent) {
         View childLayoutXML = LayoutInflater.from(getContext()).inflate(R.layout.solves_list_subgroup_item, parent, false);
 
         //INSTANTIATIONS
@@ -120,11 +125,54 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder teste = AlertFactory.newAlert(
-                        context,
-                        "testando meu factory",
-                        "teste",
-                        R.layout.alert_edit_solve, parent);
+                final View alertView = LayoutInflater.from(context).inflate(R.layout.alert_edit_solve, null, false);
+
+                final AlertDialog.Builder teste = new AlertDialog.Builder(context);
+                teste.setTitle("Editting " + TF.longToTimestamp(solves.get(groupPosition).getTotalSolveTime()));
+                teste.setView(alertView);
+
+                teste.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RadioGroup radioGroup = alertView.findViewById(R.id.childRadioGroup);
+                        EditText newTime = alertView.findViewById(R.id.newTime);
+                        EditText newScramble = alertView.findViewById(R.id.newScramble);
+                        solves = new Read().getSolves();
+
+                        Solve x = solves.get(groupPosition);
+                        if (!newTime.getText().toString().equals("")){
+                            x.setTime(new ArrayList<>(Collections.singletonList(TF.timestampToLong(newTime.getText().toString()))));
+                        }
+
+                        if (!newScramble.getText().toString().equals("")){
+                            x.setScramble(newScramble.getText().toString());
+                        }
+
+                        View radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
+                        int index = radioGroup.indexOfChild(radioButton);
+
+                        if (index == 0){
+                            x.setPlus2(false);
+                            x.setDNF(false);
+                        } else if (index == 1){
+                            x.setPlus2(true);
+                            x.setDNF(false);
+                        } else {
+                            x.setPlus2(false);
+                            x.setDNF(true);
+                        }
+
+                        new Update().updateSolve(x);
+                        SolvesFragment.animatedListView.setAdapter(new AdapterNovo(context));
+                    }
+                });
+
+                teste.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //pass
+                    }
+                });
 
                 teste.show();
             }

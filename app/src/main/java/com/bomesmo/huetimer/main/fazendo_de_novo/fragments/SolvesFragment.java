@@ -33,7 +33,7 @@ public class SolvesFragment extends Fragment {
         animatedListView.setGroupIndicator(getResources().getDrawable(R.drawable.exapandable_listview_indicator));
         adapterNovo = new AdapterNovo(getContext());
         animatedListView.setAdapter(adapterNovo);
-
+        
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
