@@ -1,4 +1,4 @@
-package com.bomesmo.huetimer.main.auxiliar;
+package com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar;
 
 /**
  * Created by Lucas on 26/12/2017.

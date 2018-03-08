@@ -79,4 +79,9 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="backspace"><![CDATA[<- backspace]]></string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="tab_text_1">Timer</string>
+    <string name="tab_text_2">Solves</string>
+    <string name="tab_text_3">Statistics</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

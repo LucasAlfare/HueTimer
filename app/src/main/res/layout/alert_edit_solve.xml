@@ -6,6 +6,35 @@
 
     <!-- android:background="#ccd1eb" -->
 
+    <RadioGroup
+        android:id="@+id/childRadioGroup"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radioOkChild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="OK" />
+
+        <RadioButton
+            android:id="@+id/radioPlus2Child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="+2" />
+
+        <RadioButton
+            android:id="@+id/radioDnfChild"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DNF" />
+    </RadioGroup>
+
     <EditText
         android:id="@+id/newTime"
         android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package com.bomesmo.huetimer.main.activities;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.activities.fewst_moves_helper.FewestMovesHelperActivity;
+import com.bomesmo.huetimer.main.activities.square1_csp_trainer.CspTrainerActivity;
 import com.bomesmo.huetimer.main.auxiliar.PreferencesHelper;
 import com.bomesmo.huetimer.main.auxiliar.SolvesHandler;
 import com.bomesmo.huetimer.main.auxiliar.TF;
@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         init();
+
+        startActivity(new Intent(getApplicationContext(), CspTrainerActivity.class));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -157,8 +159,8 @@ public class MainActivity extends AppCompatActivity
         mainScreen = findViewById(R.id.mainScreen);
         display = findViewById(R.id.display);
         scrambleView = findViewById(R.id.scramble);
-        fab = findViewById(R.id.fab);
-        fab2 = findViewById(R.id.fab2);
+        fab = findViewById(R.id.fabQuick);
+        fab2 = findViewById(R.id.fabPreferences);
         toggleInspection = findViewById(R.id.setInsp);
 
         solves = SolvesHandler.getSolves(getApplicationContext());

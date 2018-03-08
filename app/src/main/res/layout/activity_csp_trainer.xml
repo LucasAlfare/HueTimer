@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bomesmo.huetimer.main.activities.square1_csp_trainer.CspTrainerActivity">
+
+    <Spinner
+        android:id="@+id/spinnerTop"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textView8"
+        android:layout_toRightOf="@+id/textView8"
+        android:dropDownWidth="match_parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinnerTop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="Forma A: "
+        android:textColor="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinnerBottom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView8"
+        android:gravity="center_vertical"
+        android:text="Forma B: "
+        android:textColor="@android:color/background_dark" />
+
+    <Spinner
+        android:id="@+id/spinnerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerTop"
+        android:layout_toEndOf="@+id/textView9"
+        android:layout_toRightOf="@+id/textView9"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/sqDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sqScramble"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="86dp"
+        android:fontFamily="@font/aldrich"
+        android:text="00:00.000"
+        android:textColor="@android:color/background_dark"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/sqScramble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sqExactCb"
+        android:text="mostrar novo scramble"
+        android:textSize="11sp" />
+
+    <CheckBox
+        android:id="@+id/sqExactCb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView9"
+        android:text="Scramble exato (A = topo, B = base)" />
+
+</RelativeLayout>

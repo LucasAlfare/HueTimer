@@ -53,4 +53,43 @@
         android:enabled="false"
         android:text="Usar sons" />
 
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/useSounds"
+        android:text="Number of phases: "
+        android:textColor="@android:color/background_dark" />
+
+    <Button
+        android:id="@+id/decreasePhases"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView10"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/currNumberOfPhases"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/decreasePhases"
+        android:layout_alignTop="@+id/decreasePhases"
+        android:layout_toEndOf="@+id/decreasePhases"
+        android:layout_toRightOf="@+id/decreasePhases"
+        android:gravity="center"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/increasePhases"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/currNumberOfPhases"
+        android:layout_toEndOf="@+id/currNumberOfPhases"
+        android:layout_toRightOf="@+id/currNumberOfPhases"
+        android:text="+" />
+
 </RelativeLayout>

@@ -34,4 +34,6 @@ dependencies {
     implementation files('libs/gson-2.6.2.jar')
     implementation files('libs/Square-1 cs Object.jar')
     implementation files('libs/Square-1 PBL Finder.jar')
+
+    compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
 }

@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true" />
 
     <EditText
-        android:id="@+id/scrambleBox"
+        android:id="@+id/scrambleChild"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -38,19 +38,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/scrambleBox"
+        android:layout_below="@+id/scrambleChild"
         android:background="@drawable/ic_custom_edit"
         app:srcCompat="@drawable/ic_custom_edit"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:contentDescription="edit" />
 
     <ImageButton
         android:id="@+id/deleteSolve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scrambleBox"
+        android:layout_below="@+id/scrambleChild"
         android:layout_toRightOf="@+id/editSolve"
         android:background="@drawable/ic_custom_delete"
-        app:srcCompat="@drawable/ic_custom_delete" />
+        app:srcCompat="@drawable/ic_custom_delete"
+        android:contentDescription="delete" />
 
     <ImageButton
         android:id="@+id/shareSolve"
@@ -60,6 +62,7 @@
         android:layout_toEndOf="@+id/deleteSolve"
         android:background="@drawable/ic_custom_share"
         app:srcCompat="@drawable/ic_custom_share"
-        android:layout_toRightOf="@+id/deleteSolve" />
+        android:layout_toRightOf="@+id/deleteSolve"
+        android:contentDescription="share" />
 
 </RelativeLayout>

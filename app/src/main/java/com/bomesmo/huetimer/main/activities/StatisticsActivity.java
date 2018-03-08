@@ -143,7 +143,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(
                     Context.LAYOUT_INFLATER_SERVICE);
-            final View view = layoutInflater.inflate(R.layout.statistic_detail_alert, null, false);
+            final View view = layoutInflater.inflate(R.layout.alert_statistic_detail, null, false);
 
             final AlertDialog.Builder alert = new AlertDialog.Builder(StatisticsActivity.this);
             alert.setTitle(statisticName);

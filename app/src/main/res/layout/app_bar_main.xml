@@ -25,7 +25,7 @@
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabQuick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -35,13 +35,13 @@
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/fabPreferences"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/fab"
+        android:layout_alignBottom="@+id/fabQuick"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/fab"
+        android:layout_alignTop="@+id/fabQuick"
         android:layout_marginLeft="28dp"
         android:layout_marginStart="28dp"
         app:backgroundTint="@color/colorPrimary"
