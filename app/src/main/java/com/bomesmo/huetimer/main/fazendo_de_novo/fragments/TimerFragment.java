@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.fazendo_de_novo.MainActivity2;
@@ -49,56 +50,43 @@ public class TimerFragment extends Fragment {
         currPhaseView = holder.findViewById(R.id.currPhaseView);
         radioGroup = holder.findViewById(R.id.radioGroup);
 
-        final ArrayList<Solve> solves = new Read().getSolves();
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                ArrayList<Solve> solves = new Read().getSolves();
 
-        if (solves.size() > 0){
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (solves.size() > 0){
                     View radioButton = radioGroup.findViewById(checkedId);
                     int index = radioGroup.indexOfChild(radioButton);
 
                     Solve current = solves.get(solves.size() - 1);
                     switch (index){
                         case 0:
-                            new Update().updateSolve(
-                                    new Solve(
-                                            UUID.fromString(current.getUuid()),
-                                            current.getPhasesTimes(),
-                                            current.getScramble(),
-                                            false,
-                                            false));
-                            display.setText(
-                                    TF.longToTimestamp(
-                                            solves.get(solves.size() - 1).getPhasesTimes().get(MainActivity2.numPhases - 1)));
+                            current.setPlus2(false);
+                            current.setDNF(false);
+                            new Update().updateSolve(current);
+                            display.setText(TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(MainActivity2.numPhases - 1)));
                             SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
+                            Toast.makeText(getContext(), "CHECKED OK..", Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
-                            new Update().updateSolve(
-                                    new Solve(
-                                            UUID.fromString(current.getUuid()),
-                                            current.getPhasesTimes(),
-                                            current.getScramble(),
-                                            false,
-                                            true));
+                            current.setPlus2(true);
+                            current.setDNF(false);
+                            new Update().updateSolve(current);
                             display.setText("+" + TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(MainActivity2.numPhases - 1) + 2000));
                             SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
                             break;
                         case 2:
-                            new Update().updateSolve(
-                                    new Solve(
-                                            UUID.fromString(current.getUuid()),
-                                            current.getPhasesTimes(),
-                                            current.getScramble(),
-                                            true,
-                                            false));
+                            current.setPlus2(false);
+                            current.setDNF(true);
+                            new Update().updateSolve(current);
                             display.setText("DNF");
                             SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
                             break;
                     }
                 }
-            });
-        }
+            }
+        });
 
         core = new Core(
                 mainScreen,

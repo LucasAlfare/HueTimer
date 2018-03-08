@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
 
-    public static int numPhases = 2;
+    public static int numPhases = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

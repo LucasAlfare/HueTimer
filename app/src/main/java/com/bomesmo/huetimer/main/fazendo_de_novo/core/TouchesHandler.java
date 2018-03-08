@@ -82,9 +82,8 @@ public class TouchesHandler implements View.OnTouchListener {
 
         showHideUI(false);
 
-        getCore().getRadioGroup().check(R.id.radioOk);
-        //MainActivity2.solves.add(new Solve(UUID.randomUUID(), phasesTimes, getCore().getScrambleShown(), false, false));
         new Update().addSolve(new Solve(UUID.randomUUID(), phasesTimes, getCore().getScrambleShown(), false, false));
+        getCore().getRadioGroup().check(R.id.radioOk);//coloca o botão ok clicado novamente
 
         SolvesFragment.animatedListView.setAdapter(new AdapterNovo(MyApp.getContext()));
     }

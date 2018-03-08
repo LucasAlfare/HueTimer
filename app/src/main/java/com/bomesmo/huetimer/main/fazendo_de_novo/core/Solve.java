@@ -85,7 +85,7 @@ public class Solve {
 
     @Override
     public String toString() {
-        //return (isDNF() ? ("DNF") : (isPlus2() ? (time + 2000) + "+" : time)) + "\t" + scramble;
-        return super.toString();
+        return (isDNF() ? ("DNF") : (isPlus2() ? (getTotalSolveTime() + 2000) + "+" : getTotalSolveTime())) + "\t" + scramble;
+        //return super.toString();
     }
 }
