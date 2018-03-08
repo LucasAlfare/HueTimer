@@ -1,11 +1,14 @@
 package com.bomesmo.huetimer.main.fazendo_de_novo.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
@@ -33,13 +36,25 @@ public class SolvesFragment extends Fragment {
         animatedListView.setGroupIndicator(getResources().getDrawable(R.drawable.exapandable_listview_indicator));
         adapterNovo = new AdapterNovo(getContext());
         animatedListView.setAdapter(adapterNovo);
-        
+
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Delete().removerTabela();
-                new Create().criarTabela();
-                animatedListView.setAdapter(new AdapterNovo(getContext()));
+                AlertDialog.Builder a = new AlertDialog.Builder(getContext());
+                a.setTitle("DELETE ALL????");
+
+                a.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new Delete().removerTabela();
+                        new Create().criarTabela();
+                        animatedListView.setAdapter(new AdapterNovo(getContext()));
+
+                        Toast.makeText(getContext(), "DELETED!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                a.show();
             }
         });
         return holder;
