@@ -10,15 +10,19 @@ import java.util.UUID;
 public class GlobalConfiguration {
 
     private UUID uuid;
-    private long holdTime;
+    private int holdTime;
     private int numPhases;
     private boolean useInspection;
+
+    public GlobalConfiguration() {
+        //pass
+    }
 
     public GlobalConfiguration(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public GlobalConfiguration(UUID uuid, long holdTime, int numPhases, boolean useInspection) {
+    public GlobalConfiguration(UUID uuid, int holdTime, int numPhases, boolean useInspection) {
         this.uuid = uuid;
         this.holdTime = holdTime;
         this.numPhases = numPhases;
@@ -33,11 +37,11 @@ public class GlobalConfiguration {
         this.uuid = uuid;
     }
 
-    public long getHoldTime() {
+    public int getHoldTime() {
         return holdTime;
     }
 
-    public void setHoldTime(long holdTime) {
+    public void setHoldTime(int holdTime) {
         this.holdTime = holdTime;
     }
 

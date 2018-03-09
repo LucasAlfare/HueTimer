@@ -5,10 +5,9 @@ import android.view.View;
 
 import com.bomesmo.huetimer.main.MyApp;
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.MainActivity2;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.Chronometer;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Read;
+import com.bomesmo.huetimer.main.fazendo_de_novo.core.configs_crud.ReadConfig;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
 import com.bomesmo.huetimer.main.fazendo_de_novo.fragments.SolvesFragment;
 
@@ -26,7 +25,7 @@ public class TouchesHandler implements View.OnTouchListener {
     private Chronometer chronometer;
 
     private Timer t;
-    private int numPhases = MainActivity2.numPhases;
+    private int numPhases = new ReadConfig().getGlobalConfiguration().getNumPhases();
     private int phasesCouter = 0;
     private ArrayList<Long> phasesTimes;
     private ArrayList<Solve> solves;
@@ -73,6 +72,7 @@ public class TouchesHandler implements View.OnTouchListener {
         getCore().getMainScreen().setVisibility(View.VISIBLE);
         getCore().getDisplay().setVisibility(View.VISIBLE);
         getCore().getCurrPhaseView().setVisibility(View.VISIBLE);
+        numPhases = new ReadConfig().getGlobalConfiguration().getNumPhases();
     }
 
     private void stopTimer(){

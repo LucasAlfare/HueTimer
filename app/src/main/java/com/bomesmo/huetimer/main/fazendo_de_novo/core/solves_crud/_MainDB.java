@@ -11,14 +11,21 @@ import com.bomesmo.huetimer.main.MyApp;
 
 public class _MainDB extends SQLiteOpenHelper{
 
-    private static String NOME_DB = "DB";
-    private static int VERSAO_DB = 1;
-    public static String TABLE_SOLVE = "TABLE_SOLVE";
-
+    public static final String TABLE_SOLVE = "TABLE_SOLVE";
+    private static final String NOME_DB = "DB";
+    private static final int VERSAO_DB = 1;
     private static _MainDB instancia;
 
-    public _MainDB() {
+    private _MainDB() {
         super(MyApp.getContext(), NOME_DB, null, VERSAO_DB);
+    }
+
+    public static _MainDB getInstancia() {
+        if (instancia == null){
+            instancia = new _MainDB();
+        }
+
+        return instancia;
     }
 
     @Override
@@ -29,13 +36,5 @@ public class _MainDB extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-    }
-
-    public static _MainDB getInstancia() {
-        if (instancia == null){
-            instancia = new _MainDB();
-        }
-
-        return instancia;
     }
 }

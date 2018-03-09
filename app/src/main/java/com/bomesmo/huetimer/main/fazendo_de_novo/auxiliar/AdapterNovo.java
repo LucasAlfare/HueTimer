@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
+import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Delete;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Read;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
 import com.bomesmo.huetimer.main.fazendo_de_novo.fragments.SolvesFragment;
@@ -26,8 +27,8 @@ import java.util.Collections;
  */
 public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
-    private Context context;
     ArrayList<Solve> solves;
+    private Context context;
 
     public AdapterNovo(Context context) {
         this.context = context;
@@ -76,7 +77,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
 
         Solve currentSolve = solves.get(groupPosition);
 
-        String groupStamp = groupPosition + 1 + ")\t";
+        String groupStamp = (groupPosition + 1) + ")\t";
         if (currentSolve.isDNF()){
             groupStamp += "DNF";
         } else if (currentSolve.isPlus2()){
@@ -101,7 +102,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
         //INSTANTIATIONS
         EditText scrambleChild = childLayoutXML.findViewById(R.id.scrambleChild);
         ImageButton editar = childLayoutXML.findViewById(R.id.editSolve);
-        ImageButton deletar = childLayoutXML.findViewById(R.id.deleteSolve);
+        final ImageButton deletar = childLayoutXML.findViewById(R.id.deleteSolve);
         ImageButton compartilhar = childLayoutXML.findViewById(R.id.shareSolve);
 
         StringBuilder builder = new StringBuilder();
@@ -125,7 +126,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final View alertView = LayoutInflater.from(context).inflate(R.layout.alert_edit_solve, null, false);
+                final View alertView = LayoutInflater.from(context).inflate(R.layout.alert_edit_solve, parent, false);
 
                 final AlertDialog.Builder teste = new AlertDialog.Builder(context);
                 teste.setTitle("Editting " + TF.longToTimestamp(solves.get(groupPosition).getTotalSolveTime()));
@@ -164,6 +165,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
 
                         new Update().updateSolve(x);
                         SolvesFragment.animatedListView.setAdapter(new AdapterNovo(context));
+                        Toast.makeText(context, "Saved.", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -181,14 +183,40 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
         deletar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "não implementado ainda...", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder deleteAlert = new AlertDialog.Builder(context);
+                deleteAlert.setTitle("Delete the time " + TF.longToTimestamp(solves.get(groupPosition).getTotalSolveTime()) + "??");
+
+                deleteAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (solves.size() > 0) {
+                            Solve target = solves.get(groupPosition);
+
+                            if (new Delete().removerSolve(target)) {
+                                Toast.makeText(context, "DELETED!", Toast.LENGTH_SHORT).show();
+                                SolvesFragment.animatedListView.setAdapter(new AdapterNovo(context));
+                            } else {
+                                Toast.makeText(context, "Something wrong happened...", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
+                deleteAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //pass
+                    }
+                });
+
+                deleteAlert.show();
             }
         });
 
         compartilhar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "não implementado ainda...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "not implemented yet...", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -7,24 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.MainActivity2;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.TF;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Core;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
+import com.bomesmo.huetimer.main.fazendo_de_novo.core.configs_crud.ReadConfig;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Read;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by Lucas on 03/03/2018.
@@ -65,15 +61,14 @@ public class TimerFragment extends Fragment {
                             current.setPlus2(false);
                             current.setDNF(false);
                             new Update().updateSolve(current);
-                            display.setText(TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(MainActivity2.numPhases - 1)));
+                            display.setText(TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1)));
                             SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
-                            Toast.makeText(getContext(), "CHECKED OK..", Toast.LENGTH_SHORT).show();
                             break;
                         case 1:
                             current.setPlus2(true);
                             current.setDNF(false);
                             new Update().updateSolve(current);
-                            display.setText("+" + TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(MainActivity2.numPhases - 1) + 2000));
+                            display.setText("+" + TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1) + 2000));
                             SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
                             break;
                         case 2:
