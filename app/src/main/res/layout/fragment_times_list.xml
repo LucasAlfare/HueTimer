@@ -7,11 +7,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Solves:"
-        android:textColor="@android:color/background_dark"
-        android:layout_alignParentLeft="true" />
+        android:text="Solves (long click to delete single):"
+        android:textColor="@android:color/background_dark" />
 
     <com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AnimatedExpandableListView
         android:id="@+id/animatedListView"
@@ -26,8 +26,15 @@
         android:id="@+id/clear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/kkkk"
         android:layout_centerHorizontal="true"
         android:text="Apagar Tudo" />
+
+    <Space
+        android:id="@+id/kkkk"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

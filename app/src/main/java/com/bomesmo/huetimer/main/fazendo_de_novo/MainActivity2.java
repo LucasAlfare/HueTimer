@@ -40,6 +40,9 @@ public class MainActivity2 extends AppCompatActivity {
     public int holdingTime = 1;
     private GlobalConfiguration globalConfiguration;
 
+    private FloatingActionButton quick;
+    private FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +59,7 @@ public class MainActivity2 extends AppCompatActivity {
         } else {
             globalConfiguration = new GlobalConfiguration(UUID.randomUUID(), 300, 1, false);
             if (new UpdateConfig().addConfig(globalConfiguration)) {
-                Toast.makeText(this, "Standard configurations created.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Standard configurations has been created. :)", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -75,7 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         //TODO
-        FloatingActionButton quick = findViewById(R.id.fabPreferences);
+        quick = findViewById(R.id.fabPreferences);
         quick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +163,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fabQuick);
+        fab = findViewById(R.id.fabQuick);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
