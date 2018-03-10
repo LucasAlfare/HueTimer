@@ -176,7 +176,11 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
                     }
                 });
 
-                teste.show();
+                try {
+                    teste.show();
+                } catch (Exception e) {
+                    Toast.makeText(context, "Try click or reopen app again.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

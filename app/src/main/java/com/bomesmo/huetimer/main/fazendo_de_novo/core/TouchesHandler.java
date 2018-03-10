@@ -63,18 +63,6 @@ public class TouchesHandler implements View.OnTouchListener {
         getCore().getCurrPhaseView().setText("current phase: " + phasesCouter);
     }
 
-    private void showHideUI(boolean hide){
-        int visibility = hide ? View.INVISIBLE : View.VISIBLE;
-        for (View x : getCore().getViews()){
-            x.setVisibility(visibility);
-        }
-
-        getCore().getMainScreen().setVisibility(View.VISIBLE);
-        getCore().getDisplay().setVisibility(View.VISIBLE);
-        getCore().getCurrPhaseView().setVisibility(View.VISIBLE);
-        numPhases = new ReadConfig().getGlobalConfiguration().getNumPhases();
-    }
-
     private void stopTimer(){
         t.cancel();
         t = null;
@@ -86,6 +74,19 @@ public class TouchesHandler implements View.OnTouchListener {
         getCore().getRadioGroup().check(R.id.radioOk);//coloca o botão ok clicado novamente
 
         SolvesFragment.animatedListView.setAdapter(new AdapterNovo(MyApp.getContext()));
+    }
+
+    private void showHideUI(boolean hide) {
+        int visibility = hide ? View.INVISIBLE : View.VISIBLE;
+        for (View x : getCore().getViews()) {
+            x.setVisibility(visibility);
+        }
+
+        getCore().getToggleInsp().setVisibility(View.INVISIBLE);
+        getCore().getMainScreen().setVisibility(View.VISIBLE);
+        getCore().getDisplay().setVisibility(View.VISIBLE);
+        getCore().getCurrPhaseView().setVisibility(View.VISIBLE);
+        numPhases = new ReadConfig().getGlobalConfiguration().getNumPhases();
     }
 
     @Override
