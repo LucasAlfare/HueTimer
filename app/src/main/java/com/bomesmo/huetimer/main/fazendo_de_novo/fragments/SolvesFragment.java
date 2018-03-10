@@ -1,7 +1,9 @@
 package com.bomesmo.huetimer.main.fazendo_de_novo.fragments;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -13,8 +15,8 @@ import android.widget.Toast;
 
 import com.bomesmo.huetimer.main.R;
 import com.bomesmo.huetimer.main.auxiliar.TF;
-import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AnimatedExpandableListView;
+import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.SolvesListAdapter;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Create;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Delete;
@@ -29,8 +31,16 @@ import java.util.ArrayList;
 public class SolvesFragment extends Fragment {
 
     public static AnimatedExpandableListView animatedListView;//estático para poder acessar everywhere
-    private AdapterNovo adapterNovo;
+    public static Activity host;
+    private SolvesListAdapter solvesListAdapter;
     private Button clear;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        host = getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,8 +50,8 @@ public class SolvesFragment extends Fragment {
         clear = holder.findViewById(R.id.clear);
 
         animatedListView.setGroupIndicator(getResources().getDrawable(R.drawable.exapandable_listview_indicator));
-        adapterNovo = new AdapterNovo(getContext());
-        animatedListView.setAdapter(adapterNovo);
+        solvesListAdapter = new SolvesListAdapter(getContext());
+        animatedListView.setAdapter(solvesListAdapter);
         animatedListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -56,7 +66,7 @@ public class SolvesFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         if (new Delete().removerSolve(selected)) {
                             Toast.makeText(getContext(), "Solve deleted.", Toast.LENGTH_SHORT).show();
-                            animatedListView.setAdapter(new AdapterNovo(getContext()));
+                            animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                         } else {
                             Toast.makeText(getContext(), "Something wrong happened :(", Toast.LENGTH_SHORT).show();
                         }
@@ -87,7 +97,7 @@ public class SolvesFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         new Delete().removerTabela();
                         new Create().criarTabela();
-                        animatedListView.setAdapter(new AdapterNovo(getContext()));
+                        animatedListView.setAdapter(new SolvesListAdapter(getContext()));
 
                         Toast.makeText(getContext(), "DELETED!!!", Toast.LENGTH_SHORT).show();
                     }

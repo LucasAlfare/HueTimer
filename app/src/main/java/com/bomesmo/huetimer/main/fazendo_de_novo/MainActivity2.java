@@ -48,20 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        new Create().criarTabela();
-        new CreateConfig().criarTabela();
-
-        if (new ReadConfig().getGlobalConfiguration() != null) {
-            globalConfiguration = new ReadConfig().getGlobalConfiguration();
-            numPhases = globalConfiguration.getNumPhases();
-            holdingTime = globalConfiguration.getHoldTime();
-            Toast.makeText(this, "Your configurations has been loaded.", Toast.LENGTH_SHORT).show();
-        } else {
-            globalConfiguration = new GlobalConfiguration(UUID.randomUUID(), 300, 1, false);
-            if (new UpdateConfig().addConfig(globalConfiguration)) {
-                Toast.makeText(this, "Standard configurations has been created. :)", Toast.LENGTH_SHORT).show();
-            }
-        }
+        init();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +64,6 @@ public class MainActivity2 extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
-        //TODO
         quick = findViewById(R.id.fabPreferences);
         quick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +128,6 @@ public class MainActivity2 extends AppCompatActivity {
                 alert.setPositiveButton("Salvar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //PreferencesHelper.addIntegerPreference(getApplicationContext(), "pressing_time", 500);
                         globalConfiguration.setHoldTime(holdingTime);
                         globalConfiguration.setNumPhases(numPhases);
                         globalConfiguration.setUseInspection(false);
@@ -167,7 +152,7 @@ public class MainActivity2 extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "quick averages goes here", Snackbar.LENGTH_LONG)
                         .setAction("Action", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -178,19 +163,34 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
 
+    private void init() {
+        new Create().criarTabela();
+        new CreateConfig().criarTabela();
+
+        //loads user configurations saved or create one first time
+        if (new ReadConfig().getGlobalConfiguration() != null) {
+            globalConfiguration = new ReadConfig().getGlobalConfiguration();
+            numPhases = globalConfiguration.getNumPhases();
+            holdingTime = globalConfiguration.getHoldTime();
+            Toast.makeText(this, "Your configurations has been loaded.", Toast.LENGTH_SHORT).show();
+        } else {
+            globalConfiguration = new GlobalConfiguration(UUID.randomUUID(), 300, 1, false);
+            if (new UpdateConfig().addConfig(globalConfiguration)) {
+                Toast.makeText(this, "Standard configurations has been created. :)", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main_activity2, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        //int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

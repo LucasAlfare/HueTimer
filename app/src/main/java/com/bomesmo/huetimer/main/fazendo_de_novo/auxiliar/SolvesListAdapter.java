@@ -25,12 +25,12 @@ import java.util.Collections;
 /**
  * Created by Lucas on 07/03/2018.
  */
-public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
+public class SolvesListAdapter extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
 
-    ArrayList<Solve> solves;
+    private ArrayList<Solve> solves;
     private Context context;
 
-    public AdapterNovo(Context context) {
+    public SolvesListAdapter(Context context) {
         this.context = context;
         solves = new Read().getSolves();
     }
@@ -128,7 +128,8 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
             public void onClick(View v) {
                 final View alertView = LayoutInflater.from(context).inflate(R.layout.alert_edit_solve, parent, false);
 
-                final AlertDialog.Builder teste = new AlertDialog.Builder(context);
+                //final AlertDialog.Builder teste = new AlertDialog.Builder(context);
+                final AlertDialog.Builder teste = new AlertDialog.Builder(SolvesFragment.host);
                 teste.setTitle("Editting " + TF.longToTimestamp(solves.get(groupPosition).getTotalSolveTime()));
                 teste.setView(alertView);
 
@@ -140,31 +141,31 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
                         EditText newScramble = alertView.findViewById(R.id.newScramble);
                         solves = new Read().getSolves();
 
-                        Solve x = solves.get(groupPosition);
+                        Solve edittingSolve = solves.get(groupPosition);
                         if (!newTime.getText().toString().equals("")){
-                            x.setTime(new ArrayList<>(Collections.singletonList(TF.timestampToLong(newTime.getText().toString()))));
+                            edittingSolve.setTime(new ArrayList<>(Collections.singletonList(TF.timestampToLong(newTime.getText().toString()))));
                         }
 
                         if (!newScramble.getText().toString().equals("")){
-                            x.setScramble(newScramble.getText().toString());
+                            edittingSolve.setScramble(newScramble.getText().toString());
                         }
 
                         View radioButton = radioGroup.findViewById(radioGroup.getCheckedRadioButtonId());
                         int index = radioGroup.indexOfChild(radioButton);
 
                         if (index == 0){
-                            x.setPlus2(false);
-                            x.setDNF(false);
+                            edittingSolve.setPlus2(false);
+                            edittingSolve.setDNF(false);
                         } else if (index == 1){
-                            x.setPlus2(true);
-                            x.setDNF(false);
+                            edittingSolve.setPlus2(true);
+                            edittingSolve.setDNF(false);
                         } else {
-                            x.setPlus2(false);
-                            x.setDNF(true);
+                            edittingSolve.setPlus2(false);
+                            edittingSolve.setDNF(true);
                         }
 
-                        new Update().updateSolve(x);
-                        SolvesFragment.animatedListView.setAdapter(new AdapterNovo(context));
+                        new Update().updateSolve(edittingSolve);
+                        SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(context));
                         Toast.makeText(context, "Saved.", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -187,7 +188,8 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
         deletar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder deleteAlert = new AlertDialog.Builder(context);
+                //AlertDialog.Builder deleteAlert = new AlertDialog.Builder(context);
+                final AlertDialog.Builder deleteAlert = new AlertDialog.Builder(SolvesFragment.host);
                 deleteAlert.setTitle("Delete the time " + TF.longToTimestamp(solves.get(groupPosition).getTotalSolveTime()) + "??");
 
                 deleteAlert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
@@ -198,7 +200,7 @@ public class AdapterNovo extends AnimatedExpandableListView.AnimatedExpandableLi
 
                             if (new Delete().removerSolve(target)) {
                                 Toast.makeText(context, "DELETED!", Toast.LENGTH_SHORT).show();
-                                SolvesFragment.animatedListView.setAdapter(new AdapterNovo(context));
+                                SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(context));
                             } else {
                                 Toast.makeText(context, "Something wrong happened...", Toast.LENGTH_SHORT).show();
                             }

@@ -11,7 +11,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Duração do clique longo do timer:"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        android:visibility="invisible" />
 
     <SeekBar
         android:id="@+id/minhaBarra"
@@ -21,7 +22,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView4" />
+        android:layout_below="@+id/textView4"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/seekBarTarget"
@@ -31,15 +33,16 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/minhaBarra"
         android:gravity="center"
-        android:text="- - segundos" />
+        android:text="- - segundos"
+        android:visibility="invisible" />
 
     <Space
+        android:id="@+id/space"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/seekBarTarget"
-        android:id="@+id/space" />
+        android:layout_below="@+id/seekBarTarget" />
 
     <CheckBox
         android:id="@+id/useSounds"
@@ -51,7 +54,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/space"
         android:enabled="false"
-        android:text="Usar sons" />
+        android:text="Usar sons"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/textView10"

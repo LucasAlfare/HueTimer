@@ -5,8 +5,8 @@ import android.view.View;
 
 import com.bomesmo.huetimer.main.MyApp;
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.Chronometer;
+import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.SolvesListAdapter;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.configs_crud.ReadConfig;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
 import com.bomesmo.huetimer.main.fazendo_de_novo.fragments.SolvesFragment;
@@ -74,12 +74,12 @@ public class TouchesHandler implements View.OnTouchListener {
 
         //coloca o botão ok clicado novamente
         getCore().getRadioGroup().check(R.id.radioOk);
-
-        SolvesFragment.animatedListView.setAdapter(new AdapterNovo(MyApp.getContext()));
+        SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(MyApp.getContext()));
     }
 
     private void showHideUI(boolean hide) {
         int visibility = hide ? View.INVISIBLE : View.VISIBLE;
+
         for (View x : getCore().getViews()) {
             x.setVisibility(visibility);
         }
@@ -95,7 +95,6 @@ public class TouchesHandler implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP){
             startTimer();
-
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_DOWN){
             //getCore().getDisplay().setText("DOWN");

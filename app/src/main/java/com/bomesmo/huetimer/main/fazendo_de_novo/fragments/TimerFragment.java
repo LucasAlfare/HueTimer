@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.AdapterNovo;
+import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.SolvesListAdapter;
 import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.TF;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Core;
 import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
@@ -62,21 +62,21 @@ public class TimerFragment extends Fragment {
                             current.setDNF(false);
                             new Update().updateSolve(current);
                             display.setText(TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1)));
-                            SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                         case 1:
                             current.setPlus2(true);
                             current.setDNF(false);
                             new Update().updateSolve(current);
                             display.setText("+" + TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1) + 2000));
-                            SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                         case 2:
                             current.setPlus2(false);
                             current.setDNF(true);
                             new Update().updateSolve(current);
                             display.setText("DNF");
-                            SolvesFragment.animatedListView.setAdapter(new AdapterNovo(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                     }
                 }
