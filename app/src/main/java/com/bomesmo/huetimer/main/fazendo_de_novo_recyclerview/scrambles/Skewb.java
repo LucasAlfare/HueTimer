@@ -1,4 +1,4 @@
-package com.bomesmo.huetimer.main.fazendo_de_novo.scrambles;
+package com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.scrambles;
 
 /**
  * Created by Lucas on 31/12/2017.

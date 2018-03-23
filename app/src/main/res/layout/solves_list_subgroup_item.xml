@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/childLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/childLayout">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Scramble:"
-        android:textColor="@android:color/background_dark"
-        android:layout_alignParentLeft="true" />
+        android:textColor="@android:color/background_dark" />
 
     <EditText
         android:id="@+id/scrambleChild"
@@ -37,12 +37,12 @@
         android:id="@+id/editSolve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/scrambleChild"
         android:background="@drawable/ic_custom_edit"
-        app:srcCompat="@drawable/ic_custom_edit"
-        android:layout_alignParentLeft="true"
-        android:contentDescription="edit" />
+        android:contentDescription="edit"
+        app:srcCompat="@drawable/ic_custom_edit" />
 
     <ImageButton
         android:id="@+id/deleteSolve"
@@ -51,8 +51,8 @@
         android:layout_below="@+id/scrambleChild"
         android:layout_toRightOf="@+id/editSolve"
         android:background="@drawable/ic_custom_delete"
-        app:srcCompat="@drawable/ic_custom_delete"
-        android:contentDescription="delete" />
+        android:contentDescription="delete"
+        app:srcCompat="@drawable/ic_custom_delete" />
 
     <ImageButton
         android:id="@+id/shareSolve"
@@ -60,9 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/deleteSolve"
         android:layout_toEndOf="@+id/deleteSolve"
-        android:background="@drawable/ic_custom_share"
-        app:srcCompat="@drawable/ic_custom_share"
         android:layout_toRightOf="@+id/deleteSolve"
-        android:contentDescription="share" />
+        android:background="@drawable/ic_custom_share"
+        android:contentDescription="share"
+        app:srcCompat="@drawable/ic_custom_share" />
 
 </RelativeLayout>

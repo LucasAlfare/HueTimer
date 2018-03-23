@@ -1,4 +1,4 @@
-package com.bomesmo.huetimer.main.fazendo_de_novo.fragments;
+package com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,17 +11,14 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bomesmo.huetimer.main.MyApp;
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.TF;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.Core;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.Solve;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.configs_crud.ReadConfig;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Read;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
-import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.fragments.SolvesFragmentNovo;
-import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.recycler.SwipeAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.auxiliar.SolvesListAdapter;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.auxiliar.TF;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.Core;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.Solve;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.configs_crud.ReadConfig;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.solves_crud.Read;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.solves_crud.Update;
 
 import java.util.ArrayList;
 
@@ -54,39 +51,35 @@ public class TimerFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 ArrayList<Solve> solves = new Read().getSolves();
 
-                if (solves.size() > 0){
+                if (solves.size() > 0) {
                     View radioButton = radioGroup.findViewById(checkedId);
                     int index = radioGroup.indexOfChild(radioButton);
 
                     Solve current = solves.get(solves.size() - 1);
-                    switch (index){
+                    switch (index) {
                         case 0:
                             current.setPlus2(false);
                             current.setDNF(false);
                             new Update().updateSolve(current);
                             display.setText(TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1)));
-                            //SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                         case 1:
                             current.setPlus2(true);
                             current.setDNF(false);
                             new Update().updateSolve(current);
                             display.setText("+" + TF.longToTimestamp(solves.get(solves.size() - 1).getPhasesTimes().get(new ReadConfig().getGlobalConfiguration().getNumPhases() - 1) + 2000));
-                            //SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                         case 2:
                             current.setPlus2(false);
                             current.setDNF(true);
                             new Update().updateSolve(current);
                             display.setText("DNF");
-                            //SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
+                            SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(getContext()));
                             break;
                     }
                 }
-
-                RecyclerViewSwipeManager manager = new RecyclerViewSwipeManager();
-                SolvesFragmentNovo.recyclerView.setAdapter(manager.createWrappedAdapter(new SwipeAdapter(MyApp.getContext())));
-                manager.attachRecyclerView(SolvesFragmentNovo.recyclerView);
             }
         });
 

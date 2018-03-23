@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".fazendo_de_novo.MainActivity2"
+            android:name=".fazendo_de_novo_recyclerview.MainActivity2"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -48,10 +48,10 @@
                 android:value="com.bomesmo.huetimer.main.activities.MainActivity" />
         </activity>
         <activity android:name=".activities.square1_csp_trainer.CspTrainerActivity" />
-        <!--<activity-->
-            <!--android:name=".fazendo_de_novo.MainActivity2"-->
-            <!--android:label="@string/title_activity_main2"-->
-            <!--android:theme="@style/AppTheme.NoActionBar"></activity>-->
+        <!-- <activity -->
+        <!-- android:name=".fazendo_de_novo.MainActivity2" -->
+        <!-- android:label="@string/title_activity_main2" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"></activity> -->
     </application>
 
 </manifest>

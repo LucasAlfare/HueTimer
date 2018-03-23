@@ -1,16 +1,15 @@
-package com.bomesmo.huetimer.main.fazendo_de_novo.core;
+package com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core;
 
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.bomesmo.huetimer.main.MyApp;
 import com.bomesmo.huetimer.main.R;
-import com.bomesmo.huetimer.main.fazendo_de_novo.auxiliar.Chronometer;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.configs_crud.ReadConfig;
-import com.bomesmo.huetimer.main.fazendo_de_novo.core.solves_crud.Update;
-import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.fragments.SolvesFragmentNovo;
-import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.recycler.SwipeAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.auxiliar.Chronometer;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.auxiliar.SolvesListAdapter;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.configs_crud.ReadConfig;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.core.solves_crud.Update;
+import com.bomesmo.huetimer.main.fazendo_de_novo_recyclerview.fragments.SolvesFragment;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -41,10 +40,10 @@ public class TouchesHandler implements View.OnTouchListener {
         solves = new ArrayList<>();
     }
 
-    private void startTimer(){
+    private void startTimer() {
         showHideUI(true);
-        if (phasesCouter < numPhases){
-            if (t == null){
+        if (phasesCouter < numPhases) {
+            if (t == null) {
                 t = new Timer();
             } else {
                 phasesTimes.add(chronometer.e);
@@ -64,7 +63,7 @@ public class TouchesHandler implements View.OnTouchListener {
         getCore().getCurrPhaseView().setText("current phase: " + phasesCouter);
     }
 
-    private void stopTimer(){
+    private void stopTimer() {
         t.cancel();
         t = null;
         phasesCouter = 0;
@@ -75,14 +74,7 @@ public class TouchesHandler implements View.OnTouchListener {
 
         //coloca o botão ok clicado novamente
         getCore().getRadioGroup().check(R.id.radioOk);
-
-        /*
-         *
-         */
-        RecyclerViewSwipeManager manager = new RecyclerViewSwipeManager();
-        SolvesFragmentNovo.recyclerView.setAdapter(manager.createWrappedAdapter(new SwipeAdapter(MyApp.getContext())));
-        manager.attachRecyclerView(SolvesFragmentNovo.recyclerView);
-        //SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(MyApp.getContext()));
+        SolvesFragment.animatedListView.setAdapter(new SolvesListAdapter(MyApp.getContext()));
     }
 
     private void showHideUI(boolean hide) {
@@ -101,10 +93,10 @@ public class TouchesHandler implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             startTimer();
             return true;
-        } else if (event.getAction() == MotionEvent.ACTION_DOWN){
+        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             //getCore().getDisplay().setText("DOWN");
             return true;
         }
